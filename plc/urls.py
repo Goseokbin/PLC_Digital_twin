@@ -19,5 +19,9 @@ from plc import views
 app_name='plc'
 
 urlpatterns = [
-    url(r'^index/$', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
+    url(r'model', views.model, name='model'),
+    url(r'history', views.history, name='history'),
+    url(r'real', views.real, name='real'),
+
 ]
