@@ -1,4 +1,8 @@
 from django.shortcuts import render
+import serial
+from serial import SerialException
+from .models import Arduino
+
 from django.views.generic import TemplateView
 # Create your views here.
 
@@ -14,3 +18,28 @@ def history(request):
 
 def real(request):
     return render(request, 'plc/real.html',{});
+
+
+
+def arduino(request):
+    url = "http://127.0.0.1:8000/"
+    try:
+        ser = serial.Serial(
+            port='/dev/cu.usbserial-A107P4O8',
+            baudrate=9600,
+        )
+
+
+        if ser.readable():
+             res = ser.readline()
+             decoderes = res.decode()[:len(res) - 1]
+             print(decoderes)
+             temp = decoderes[10:15]
+             humi = decoderes[31:36]
+             Arduino(temperature=float(temp),humidity=float(humi)).save()
+
+
+    except SerialException:
+        print("No connect")
+    return render(request, 'plc/temp.html',{'temp':temp,'humi':humi});
+

@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'model', views.model, name='model'),
     url(r'history', views.history, name='history'),
     url(r'real', views.real, name='real'),
+    url(r'temp',views.arduino, name='temp'),
 
 ]
