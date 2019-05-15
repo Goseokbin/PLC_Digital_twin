@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cardinal spline</title>
+    <style>
+        body{
+            padding: 50px;
+            overflow-y : hidden;
+        }
+        #temp_humi_graph{
+            width: 100px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id = "temp_humi_graph"></div>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        drawGraph();
+
+        system_message('Ready!');
+        g_reloadTimer = setInterval(reloadManager,500);
+    })
+
+    var current_watt_for_graph = 0;
+
+    function drawGraph(){
+        var n =60,
+        random = d3.random.normal(0,0),
+            data = d3.range(n).map(random);
+
+        var margin = {top:20, right:20, bottom:20, left:40},
+            width = 500 - margin.left-margin.right,
+            height = 280 - margin.top -margin.bottom;
+
+        var x = d3.scale.linear()
+            .domain([0,n-1])
+            .range([0,width]);
+
+        var y = d3.scale.linear()
+            .domain([0,100])
+            .range([height,0]);
+
+        var line = d3.svg.line()
+            .x(function(d,i){return x(i);})
+            .y(function(d,i){return y(d);});
+
+        var svg = d3.select("#drawGraph").append("svg")
+            .attr("width",width + margin.left+margin.right)
+            .attr("height",height +margin.top+margin.bottom)
+            .append("g")
+            .attr("transform","translate("+margin.left+","+margin.top+")");
+
+        svg.style("fill","#fff8ee")
+
+        svg.append("defs").append("clipPath")
+            .attr("id","clip")
+            .append("rect")
+            .attr("width",width)
+            .attr("height",height);
+
+        svg.append("g")
+            .attr("class","x axis")
+            .attr("transform","translate(0,"+_y(0)+")")
+            .call(d3.svg.axis().scale(x).orient("bottom"));
+
+        svg.append("g")
+            .attr("class","y axis")
+            .call(d3.svg.axis().scale(y).orient("left"))
+
+        var path=svg.append("g")
+            .attr("clip-path","url(#clip)")
+            .append("path")
+            .datum(data)
+            .attr("class","line")
+            .attr("d",line);
+
+        tick();
+        function tick(){
+            data.push(current_watt_for_graph);
+
+            path
+                .attr("d",line)
+                .attr("transform",null)
+                .transition()
+                .durantion(1000)
+                .ease("linear")
+                .attr("transform","translate("+x(-1)+"0)")
+                .each("end",tick);
+
+        }
+        var graph_timer = null;
+        var graph_time_interval =1000;
+
+        function graph_loading()
+        {
+            clearInterval(graph_timer);
+            {
+            $.get("cmp_test_watt.")
+            }
+        }
+    }
+
+</script>
+</body>
+
+</html>

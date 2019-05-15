@@ -4,4 +4,5 @@ from django.db import models
 
 class Arduino(models.Model):
         temperature = models.IntegerField()
-        humidity = models.IntegerField();
+        humidity = models.IntegerField()
+        date = models.DateTimeField(auto_now=True)

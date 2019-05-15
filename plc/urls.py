@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 from plc import views
+from plc.views import *
 
 app_name='plc'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'model', views.model, name='model'),
     url(r'history', views.history, name='history'),
     url(r'real', views.real, name='real'),
     url(r'temp',views.arduino, name='temp'),
+    url(r'chart',views.GetArduino, name='chart'),
 
 ]

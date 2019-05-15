@@ -25,7 +25,7 @@ SECRET_KEY = 'ihof@=8ro2dkt_4-vh^vilb!0^xt4xql0p^%702(sz_h4g4t9y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Graduation',
         'USER': 'root',
-        'PASSWORD': '1234',
+        'PASSWORD': 'go_seokbin3438',
         'HOST': '127.0.0.1',
         'PORT': '3306',
 
@@ -111,13 +111,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
