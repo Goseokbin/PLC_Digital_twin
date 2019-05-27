@@ -1,32 +1,52 @@
+{% load static %}
 <html>
   <head>
+      <style>
+          #histogram {
+              width: 800px;
+              height: 800px;
+
+          }
+      </style>
     <title>DHT11 Temperature/Humidity monitoring</title>
-    <link rel="stylesheet" href="style.css"/>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="script.js"></script>
   </head>
 
   <body mode="desktop" num="2000">
-    <h3>DHT11 Temperature/Humidity monitoring</h3>
-
     <!-- datetime of the last record and its humidity/temperature. -->
-    <div id="now">
-      <div id="datetime" class="column">
-        <table>
-          <tr><td id="date"></td></tr>
-          <tr><td id="time"></td></tr>
-        </table>
-      </div>
-      <div class="column">
-        <div id="temp"></div>
-      </div>
-      <div class="column">
-        <div id="humid"></div>
-      </div>
-    </div>
+    {% block content %}
+    <div id="chart"></div>
+{#    <script src="script.js"></script>#}
+  {% endblock %}
+  {% block javascript  %}
+      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://d3js.org/d3.v3.min.js"></script>
+      <script>
+      var jsonData
+          var t = setInterval(getData,2000)
+         // getData();
+         //console.log(jsonData);
+        // DrawGraph()
 
-    <!-- place for the d3 graph -->
-    <div id="graph"></div>
+      function getData(){
+          jsonData = $.ajax({
+              url:'arduino/',
+              datatype:'json',
+              async: true,
+              type:'GET',
+              data:"{}",
+              success: function(data){
+                    {#console.log(data[0].temperature);#}
+                 console.log(data);
+
+              },
+              error: function(request, status, error){
+                  alert("실패")
+              }
+
+          });
+         return jsonData;
+      }
+      </script>
+  {% endblock %}
   </body>
 </html>
