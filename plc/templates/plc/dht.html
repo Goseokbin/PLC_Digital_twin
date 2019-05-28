@@ -1,52 +1,108 @@
 {% load static %}
 <html>
   <head>
+      <script src="https://d3js.org/d3.v4.min.js"></script>
       <style>
-          #histogram {
-              width: 800px;
-              height: 800px;
-
-          }
+         body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    #chart {
+      max-width: 600px;
+      max-height: 400px;
+    }
       </style>
     <title>DHT11 Temperature/Humidity monitoring</title>
   </head>
 
   <body mode="desktop" num="2000">
-    <!-- datetime of the last record and its humidity/temperature. -->
     {% block content %}
     <div id="chart"></div>
-{#    <script src="script.js"></script>#}
   {% endblock %}
   {% block javascript  %}
+      <script src="static/js/script.js"></script>
       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://d3js.org/d3.v3.min.js"></script>
       <script>
-      var jsonData
-          var t = setInterval(getData,2000)
-         // getData();
-         //console.log(jsonData);
-        // DrawGraph()
+      //window.setInterval(getData,5000)
 
-      function getData(){
-          jsonData = $.ajax({
-              url:'arduino/',
-              datatype:'json',
-              async: true,
-              type:'GET',
-              data:"{}",
-              success: function(data){
-                    {#console.log(data[0].temperature);#}
-                 console.log(data);
+          function getData() {
+              var jsonData = new Object();
+               $.ajax({
+                  url: 'arduino/',
+                  datatype: 'json',
+                  async: false,
+                  type: 'GET',
+                  data: "{}",
+                  success: function (data) {
 
-              },
-              error: function(request, status, error){
-                  alert("실패")
-              }
+                      jsonData.temp = data['temperature']
+                      jsonData.humi = data['humi']
+                      jsonData.date = data['date']
+                      jsonData.time = data['time']
+                  },
+                  error: function (request, status, error) {
+                      alert("실패")
+                  }
+              });
+               return jsonData
+          }
 
-          });
-         return jsonData;
+
+
+    var lineArr = [];
+    var MAX_LENGTH = 100;
+    var duration = 500;
+    var chart = realTimeLineChart();
+
+    function randomNumberBounds(min, max) {
+      return Math.floor(Math.random() * max) + min;
+    }
+
+    function seedData() {
+        var now = new Date();
+        var data = getData();
+      for (var i = 0; i < MAX_LENGTH; ++i) {
+        lineArr.push({
+         time: new Date(now.getTime() - ((MAX_LENGTH - i) * duration)),
+          x: data['temp'],
+          y: data['humi'],
+          z: randomNumberBounds(0, 10)
+        });
       }
-      </script>
+    }
+
+    function updateData() {
+        var now = new Date();
+        var data = getData();
+        console.log(data['temp'])
+      var lineData = {
+        time: now,
+        x: data['temp'],
+        y: data['humi'],
+        z: randomNumberBounds(0, 10)
+      };
+      lineArr.push(lineData);
+
+      if (lineArr.length > 30) {
+        lineArr.shift();
+      }
+      d3.select("#chart").datum(lineArr).call(chart);
+    }
+
+    function resize() {
+      if (d3.select("#chart svg").empty()) {
+        return;
+      }
+      chart.width(+d3.select("#chart").style("width").replace(/(px)/g, ""));
+      d3.select("#chart").call(chart);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      seedData();
+      window.setInterval(updateData, 500);
+      d3.select("#chart").datum(lineArr).call(chart);
+      d3.select(window).on('resize', resize);
+    });
+    </script>
   {% endblock %}
   </body>
 </html>

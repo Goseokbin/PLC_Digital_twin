@@ -8,7 +8,7 @@ function realTimeLineChart() {
   function chart(selection) {
     // Based on https://bl.ocks.org/mbostock/3884955
     selection.each(function(data) {
-      data = ["x", "y", "z"].map(function(c) {
+      data = ["temp", "humi", "z"].map(function(c) {
         return {
           label: c,
           values: data.map(function(d) {
