@@ -1,14 +1,19 @@
-{% load static %}
+{% load staticfiles %}
 <html>
   <head>
       <script src="https://d3js.org/d3.v4.min.js"></script>
+       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       <style>
          body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
+
+
     #chart {
-      max-width: 600px;
-      max-height: 400px;
+      max-width: 1000px;
+      max-height: 800px;
     }
       </style>
     <title>DHT11 Temperature/Humidity monitoring</title>
@@ -17,14 +22,47 @@
   <body mode="desktop" num="2000">
     {% block content %}
     <div id="chart"></div>
-  {% endblock %}
-  {% block javascript  %}
-      <script src="static/js/script.js"></script>
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script>
-      //window.setInterval(getData,5000)
+        <script>
+              var data = getData()
+      var time = new Date()
 
-          function getData() {
+
+     Plotly.plot('chart', [
+     {
+    x:[time],
+  y: [data['temp']],
+  mode: 'lines',
+  marker: {color: 'pink', size: 8},
+  line: {width: 4},
+  name:'Temperature'
+}, {
+         x:[data['time']],
+  y: [data['humi']],
+  mode: 'lines',
+  marker: {color: 'gray', size:8},
+  line: {width: 4},
+  name:'Humidity'
+}]);
+      var cnt =0;
+
+    var interval = setInterval(function() {
+        var data = getData();
+        var time = new Date();
+     Plotly.extendTraces('chart', {
+          x: [[time], [time]],
+          y: [[data['temp']], [data['humi']]]
+    }, [0, 1])
+
+
+     cnt = cnt+1;
+     console.log(cnt)
+ // if(cnt === 100) clearInterval(interval);
+
+}, 1000);
+
+
+
+        function getData() {
               var jsonData = new Object();
                $.ajax({
                   url: 'arduino/',
@@ -32,8 +70,8 @@
                   async: false,
                   type: 'GET',
                   data: "{}",
+                  beforeSend: function(XMLHttpRequest){},
                   success: function (data) {
-
                       jsonData.temp = data['temperature']
                       jsonData.humi = data['humi']
                       jsonData.date = data['date']
@@ -45,64 +83,7 @@
               });
                return jsonData
           }
-
-
-
-    var lineArr = [];
-    var MAX_LENGTH = 100;
-    var duration = 500;
-    var chart = realTimeLineChart();
-
-    function randomNumberBounds(min, max) {
-      return Math.floor(Math.random() * max) + min;
-    }
-
-    function seedData() {
-        var now = new Date();
-        var data = getData();
-      for (var i = 0; i < MAX_LENGTH; ++i) {
-        lineArr.push({
-         time: new Date(now.getTime() - ((MAX_LENGTH - i) * duration)),
-          x: data['temp'],
-          y: data['humi'],
-          z: randomNumberBounds(0, 10)
-        });
-      }
-    }
-
-    function updateData() {
-        var now = new Date();
-        var data = getData();
-        console.log(data['temp'])
-      var lineData = {
-        time: now,
-        x: data['temp'],
-        y: data['humi'],
-        z: randomNumberBounds(0, 10)
-      };
-      lineArr.push(lineData);
-
-      if (lineArr.length > 30) {
-        lineArr.shift();
-      }
-      d3.select("#chart").datum(lineArr).call(chart);
-    }
-
-    function resize() {
-      if (d3.select("#chart svg").empty()) {
-        return;
-      }
-      chart.width(+d3.select("#chart").style("width").replace(/(px)/g, ""));
-      d3.select("#chart").call(chart);
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      seedData();
-      window.setInterval(updateData, 500);
-      d3.select("#chart").datum(lineArr).call(chart);
-      d3.select(window).on('resize', resize);
-    });
-    </script>
+        </script>
   {% endblock %}
   </body>
 </html>
