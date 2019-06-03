@@ -76,3 +76,6 @@ def GetArduino2(request):
     data=arduino(request)
     print(data)
     return JsonResponse(data,safe=False)
+
+def unity(request):
+    return render(request, "plc/webgl.html")
