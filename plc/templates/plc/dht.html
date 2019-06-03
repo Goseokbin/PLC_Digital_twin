@@ -1,52 +1,89 @@
-{% load static %}
+{% load staticfiles %}
 <html>
   <head>
-      <style>
-          #histogram {
-              width: 800px;
-              height: 800px;
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-          }
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+      <style>
+         body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+
+    #chart {
+      max-width: 1000px;
+      max-height: 800px;
+    }
       </style>
     <title>DHT11 Temperature/Humidity monitoring</title>
   </head>
 
   <body mode="desktop" num="2000">
-    <!-- datetime of the last record and its humidity/temperature. -->
     {% block content %}
     <div id="chart"></div>
-{#    <script src="script.js"></script>#}
-  {% endblock %}
-  {% block javascript  %}
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://d3js.org/d3.v3.min.js"></script>
-      <script>
-      var jsonData
-          var t = setInterval(getData,2000)
-         // getData();
-         //console.log(jsonData);
-        // DrawGraph()
+        <script>
+              var data = getData()
+      var time = new Date()
 
-      function getData(){
-          jsonData = $.ajax({
-              url:'arduino/',
-              datatype:'json',
-              async: true,
-              type:'GET',
-              data:"{}",
-              success: function(data){
-                    {#console.log(data[0].temperature);#}
-                 console.log(data);
 
-              },
-              error: function(request, status, error){
-                  alert("실패")
-              }
+     Plotly.plot('chart', [
+     {
+    x:[time],
+  y: [data['temp']],
+  mode: 'lines',
+  marker: {color: 'pink', size: 8},
+  line: {width: 4},
+  name:'Temperature'
+}, {
+         x:[data['time']],
+  y: [data['humi']],
+  mode: 'lines',
+  marker: {color: 'gray', size:8},
+  line: {width: 4},
+  name:'Humidity'
+}]);
+      var cnt =0;
 
-          });
-         return jsonData;
-      }
-      </script>
+    var interval = setInterval(function() {
+        var data = getData();
+        var time = new Date();
+     Plotly.extendTraces('chart', {
+          x: [[time], [time]],
+          y: [[data['temp']], [data['humi']]]
+    }, [0, 1])
+
+
+     cnt = cnt+1;
+     console.log(cnt)
+ // if(cnt === 100) clearInterval(interval);
+
+}, 1000);
+
+
+
+        function getData() {
+              var jsonData = new Object();
+               $.ajax({
+                  url: 'arduino/',
+                  datatype: 'json',
+                  async: false,
+                  type: 'GET',
+                  data: "{}",
+                  beforeSend: function(XMLHttpRequest){},
+                  success: function (data) {
+                      jsonData.temp = data['temperature']
+                      jsonData.humi = data['humi']
+                      jsonData.date = data['date']
+                      jsonData.time = data['time']
+                  },
+                  error: function (request, status, error) {
+                      alert("실패")
+                  }
+              });
+               return jsonData
+          }
+        </script>
   {% endblock %}
   </body>
 </html>

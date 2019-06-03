@@ -46,8 +46,8 @@ def arduino(request):
              res = ser.readline()
              decoderes = res.decode()[:len(res) - 1]
              print(decoderes)
-             temp = decoderes[5:9]
-             humi = decoderes[0:4]
+             humi = decoderes[5:9]
+             temp = decoderes[0:4]
              dt = datetime.datetime.now()
              date = dt.strftime('%Y-%m-%d')
              time = dt.strftime('%H:%M:%S')
