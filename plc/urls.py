@@ -24,8 +24,9 @@ urlpatterns = [
     url(r'model', views.model, name='model'),
     url(r'history', views.history, name='history'),
     url(r'real', views.real, name='real'),
-    url(r'temp',views.GetArduino2, name='temp'),
+    url(r'temp',views.GetArduino, name='temp'),
     url(r'dht',views.dht, name='dht'),
     url(r'arduino',views.arduino, name='arduino'),
+    url(r'unity', views.unity, name="unity")
 
 ]

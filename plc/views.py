@@ -27,9 +27,6 @@ def real(request):
 def dht(request):
     return render(request, 'plc/dht.html',{});
 
-def barchart(request):
-    return render(request, 'plc/barchart.html',{});
-
 class IndexView(TemplateView):
     template_name = "plc/index.html"
 
@@ -37,7 +34,8 @@ def arduino(request):
 
     try:
         ser = serial.Serial(
-            port='/dev/cu.usbserial-A107P4O8',
+            # port='/dev/cu.usbserial-A107P4O8',
+            port='COM6',
             baudrate=9600,
         )
 
@@ -76,3 +74,6 @@ def GetArduino2(request):
     data=arduino(request)
     print(data)
     return JsonResponse(data,safe=False)
+
+def unity(request):
+    return render(request, "plc/webgl.html")
