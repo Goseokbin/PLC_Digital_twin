@@ -22,6 +22,7 @@ VIEWS_UNITY_NAME_UNITY_ = [
     url(r'model', views.model, name='model'),
     url(r'history', views.history, name='history'),
     url(r'real', views.real, name='real'),
+<<<<<<< HEAD
     url(r'temp', views.GetArduino, name='temp'),
     url(r'dht', views.dht, name='dht'),
     url(r'arduino', views.arduino, name='arduino'),
@@ -30,5 +31,11 @@ VIEWS_UNITY_NAME_UNITY_ = [
 ]
 
 app_name='plc'
+=======
+    url(r'temp',views.GetArduino, name='temp'),
+    url(r'dht',views.dht, name='dht'),
+    url(r'arduino',views.arduino, name='arduino'),
+    url(r'unity', views.unity, name="unity")
+>>>>>>> a412164f196de76130e491df0cbc3de40d6a387d
 
 urlpatterns = VIEWS_UNITY_NAME_UNITY_
