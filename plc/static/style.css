@@ -86,11 +86,22 @@ html, body{
 
 /*============== Container =================*/
 .container{
-	display:table;
+    display:flex;
 	margin:0 auto 0 auto;
-	width:1100px;
+	width: 100%;
 	position:relative;
 	}
+.main{
+    flex:1 ;
+}
+.nav{
+    text-align:center;
+    padding-top:  10px;
+    flex :3;
+}
+.mobile2{
+padding-top:  10px;
+flex:1;}
 
 .insider{
 	display:table;
@@ -126,6 +137,7 @@ html, body{
 	width:100%;
 	height:auto;
 	padding:46px 0 46px 0;
+	display:flex
 	}
 
 .header_fix{
@@ -146,7 +158,9 @@ html, body{
 	}
 	
 .nav{
-	float:right;
+	float:left;
+	display:flex;
+	justify-content:center;
 	margin:0 0 0 0;
 	}
 
@@ -159,12 +173,17 @@ html, body{
 	}
 	
 .nav ul{
-	float:right;
+    margin-left : auto;
+    margin-right : auto;
+	float:left;
+	text-align:center;
 	margin:0 0 0 0;
 	}
 	
 .nav ul li{
-	float:left;
+
+    display:inline-block;
+    padding-right:50px;
 	margin:0 0 0 0;
 	}
 
@@ -172,37 +191,38 @@ html, body{
 	float:left;
 	text-decoration:none;
 	text-align:center;
-	font-family: 'open_sansregular';
-	font-size:13px;
-	color:#333;
+	font-family: 'open_sansbold';
+	font-size:20px;
+	color:#6e6e6e;
 	font-weight:normal;
 	margin:0 0 0 0;
 	padding:10px 25px 10px 25px;
 	text-transform:uppercase;
 	margin:0 0 0 0;
 	transition:0.5s; -webkit-transition:0.5s;
-	} 
-	
-.nav ul li:last-of-type{
-	float:right;
-	margin:0 0 0 40px;
 	}
 	
+/*
+.nav ul li:last-of-type{
+	margin:0 0 0 40px;
+	}
+
 .nav ul li:last-of-type a{
 	background:#187cc2;
 	color:#fff;
 	}
-	
+*/
+
 .nav ul li a:hover{
 	background:#187cc2;
 	color:#fff;
 	}
 	
-.nav ul li:last-of-type a:hover{
-	background:#323232;
+/*.nav ul li:last-of-type a:hover{
+
 	color:#fff;
-	}
-	
+	}*/
+
 /*============== Slider Section =================*/
 .slider_main{
 	float:left;
@@ -296,9 +316,9 @@ a.button2:hover{
 	
 .service_section h2{
 	text-align:center;
-	font-family: 'open_sansregular';
+	font-family: 'open_sansbold';
 	font-size:30px;
-	color:#333;
+	color:#6e6e6e;
 	font-weight:normal;
 	margin:0 0 20px 0;
 	padding:0 0 0 0;
@@ -415,19 +435,23 @@ a.button2:hover{
 
 .feature_section .leftside img{
 	float:right;
+	margin-right : 50px;
 	}
 
 .feature_section .rightside{
-	float:right;
+	float:left;
 	width:587px;
 	margin:0 35px 0 0;
+	}
+	.feature_section .rightside img{
+	margin-left : 30px;
 	}
 	
 .feature_section h2{
 	text-align:left;
-	font-family: 'open_sansregular';
+	font-family: 'open_sansbold';
 	font-size:30px;
-	color:#333;
+	color:#6e6e6e;
 	font-weight:normal;
 	margin:0 0 30px 0;
 	padding:0 0 0 0;
@@ -442,7 +466,11 @@ a.button2:hover{
 	font-weight:normal;
 	margin:0 0 30px 0;
 	}
-	
+.feature_section .container{
+	display:flex;
+	justify-content:center;
+}
+
 .feature{
 	float:left;
 	width:100%;
@@ -550,11 +578,9 @@ a.button4:hover{
 	border-bottom:1px solid #e7e7e7;
 	}
 
-img.imagethumb2{
-	margin:100px 0 0 10px;
-	}
-	
-	
+
+
+
 .ano_feature_section .leftside{
 	float:left;
 	width:587px;
@@ -577,10 +603,10 @@ img.imagethumb2{
 	
 .common_section h2{
 	text-align:center;
-	font-family: 'open_sansregular';
+	font-family: 'open_sansbold';
 	font-size:30px;
-	color:#333;
-	font-weight:normal;
+	color:#6e6e6e;
+	font-weight:bold;
 	margin:0 0 20px 0;
 	padding:0 0 0 0;
 	}
