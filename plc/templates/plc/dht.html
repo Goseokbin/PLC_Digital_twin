@@ -1,4 +1,3 @@
-
 {% load staticfiles %}
 
 <html>
@@ -16,6 +15,10 @@
          body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
+         @font-face {
+             font-family: 'led';
+             src:url("/static/fonts/led_board-7.ttf")format("truetype");
+         }
 
 
     #chart {
@@ -31,14 +34,65 @@
     width :60%;
 
     }
+      .mini{
 
+          display: inline-block;
+          float : left;
+          width: 200;
+          height:100;
+          text-align : center;
+          margin : 30;
+          padding: 10;
+          box-shadow: 1px 2px 3px 0.5px gray;
+      }
+      .mini div{
+          margin : 30;
+          padding: 10;
+      }
+      .mini h6{
+          margin : 10;
+          padding: 10;
+      }
 
     .info{
-       background-color :ivory;
+       background-color :#187CC2;
        float: right;
        width: 40%;
        height:1000;
     }
+          #card-1{
+              display:flex;
+              flex-direction: column;
+              justify-content: space-evenly;
+              widht: 100%;
+              margin-bottom: 3rem;
+              margin:50;
+              text-align:center
+          }
+          #op_id{
+              margin: 2rem;
+              color: inherit;
+              font-size:20px;
+          }
+          #operator-led{
+              width: 160;
+              height:120;
+              margin-left:250;
+              border: 1px solid;
+          }
+          #operator-led > div{
+              width:80%;
+
+
+          }
+          #operator-led > h6{
+              margin-top: 30;
+          }
+          #operator-led > p{
+              font-size: 50px;
+              font-family: led;
+              margin-top: 40;
+          }
       </style>
     <title>DHT11 Temperature/Humidity monitoring</title>
   </head>
@@ -74,6 +128,31 @@
 
         </div>
         </div>
+      <div id = "temp" class = "mini">
+      <h6 id = "temp_text">24</h6>
+      <p>Temperature</p>
+      </div>
+      <div id = "humi" class = "mini">
+      <h6 id = "humi_text">36</h6>
+      <p>Temperature</p>
+      </div>
+      <div id = "elec" class = "mini">
+      <h6 id = "elec_text">2234</h6>
+      <p>electronic</p>
+      </div>
+      <div id = "infra" class = "mini">
+      <h6 id = "infra_text">24123</h6>
+      <p>infrared</p>
+      </div>
+    <div class = "info">
+    <div id = "card-1">
+        <p id="op_id">Operator ID</p>
+        <div id = "operator-led">
+            <p>2353</p>
+        </div>
+    </div>
+
+    </div>
   <div id="chart">
               <script>
       var data = getData()
@@ -138,7 +217,7 @@
           }
         </script>
   </div>
-   <div class = "info"></div>
+
         <div id="chart1"></div>
 
 

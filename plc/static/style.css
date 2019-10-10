@@ -176,16 +176,17 @@ flex:1;}
 .nav ul{
     margin-left : auto;
     margin-right : auto;
-	float:left;
+
 	text-align:center;
 	margin:0 0 0 0;
 	}
 	
 .nav ul li{
 
-    display:inline-block;
-    padding-right:50px;
+    display:inline;
+    padding-right:30px;
 	margin:0 0 0 0;
+	float: left;
 	}
 
 .nav ul li a{
