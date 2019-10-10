@@ -20,6 +20,8 @@ def model(request):
 
 def history(request):
     return render(request, 'plc/history.html',{});
+def header(request):
+    return render(request, 'plc/header.html',{});
 
 def real(request):
     return render(request, 'plc/real.html',{});
