@@ -34,8 +34,8 @@ def arduino(request):
 
     try:
         ser = serial.Serial(
-            # port='/dev/cu.usbserial-A107P4O8',
-            port='COM6',
+             port='/dev/cu.usbserial-A107P4O8',
+            #port='COM6',
             baudrate=9600,
         )
 
