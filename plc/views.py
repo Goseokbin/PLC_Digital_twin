@@ -9,6 +9,7 @@ from django.views.generic import View
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -28,6 +29,8 @@ def real(request):
 
 def dht(request):
     return render(request, 'plc/dht.html',{});
+def chart (request):
+    return render(request, 'plc/chart.html',{});
 
 class IndexView(TemplateView):
     template_name = "plc/index.html"
@@ -79,3 +82,17 @@ def GetArduino2(request):
 
 def unity(request):
     return render(request, "plc/webgl.html")
+
+@csrf_exempt
+def GetDate(request):
+    startdate=request.POST['startdate']
+    enddate=request.POST['enddate']
+    convert_sd = datetime.datetime.strptime(startdate, "%d/%m/%Y %H:%M")
+    convert_ed = datetime.datetime.strptime(enddate, "%d/%m/%Y %H:%M")
+
+    print(convert_sd)
+    print(convert_ed)
+
+
+
+    return JsonResponse(startdate, safe=False)

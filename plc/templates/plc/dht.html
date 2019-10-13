@@ -7,18 +7,218 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
 
 
     <link href="/static/style.css?ver=2" rel="stylesheet" type="text/css"/>
-    <link href="/static/dht_style.css?ver=1" rel="stylesheet" type="text/css"/>
+{#   <link href="/static/dht_style.css" rel="stylesheet" type="text/css"/>#}
     <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+
     <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
 
 
     <title>DHT11 Temperature/Humidity monitoring</title>
+<style>
+    body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #1e2130;
+        }
+        .logo img{
+            width: 350;
+            height: 100;
+        }
+        .header{
+            background-color:#1e2130;
+        }
+        .nav{
+            margin: 20;
+        }
+        .nav ul li a {
+            color: white;
+        }
 
+        @font-face {
+            font-family: 'led';
+            src: url("/static/fonts/led_board-7.ttf") format("truetype");
+        }
+
+
+        #chart {
+            float: left;
+            height: 500;
+            width: 57%;
+            background-color: ivory;
+
+        }
+
+        #chart1 {
+            float: left;
+            height: 500;
+            width: 60%;
+
+        }
+
+        .mini {
+
+            display: inline-block;
+            float: left;
+            width: 200;
+            height: 100;
+            text-align: center;
+            margin: 30;
+            padding: 10;
+            border: 1px solid white;
+            color: white;
+            font-size: 20;
+        }
+
+        .mini div {
+            margin: 30;
+            padding: 10;
+        }
+
+        .mini h6 {
+            margin: 10;
+            padding: 10;
+        }
+
+
+
+        .info {
+
+            float: right;
+            width: 40%;
+            height: 1500;
+            border: 1px solid white
+        }
+
+        .card-1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            widht: 100%;
+            margin-bottom: 3rem;
+            margin: 50;
+            text-align: center
+        }
+
+        #op_id {
+            margin: 2rem;
+            color: white;
+            font-size: 20px;
+        }
+
+        #operator-led {
+            width: 160;
+            height: 120;
+            margin-left: 250;
+            border: 1px solid white
+        }
+
+        #operator-led > div {
+            width: 80%;
+
+
+        }
+
+        #operator-led > h6 {
+            margin-top: 30;
+
+        }
+
+        #operator-led > p {
+            font-size: 50px;
+            font-family: led;
+            margin-top: 40;
+            color: #92E0D3;
+        }
+
+        .card-2 {
+            height: 40%;
+            text-align: center;
+            margin-top: 150;
+        }
+
+        #outlier {
+            margin: 2rem;
+            color: white;
+            font-size: 20px;
+        }
+
+        #outlier_table {
+            width: 160;
+            height: 120;
+            margin-left: 170;
+
+        }
+        .card-3{
+            text-align:center;
+        }
+        table {
+            width: 400;
+            height: 300;
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            color: white;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: white;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            color: white;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: white;
+        }
+
+        .tg .tg-jqnn {
+            font-size: 20px;
+            color: #ffffff;
+            border-color: #ffffff;
+            text-align: center;
+            vertical-align: top
+        }
+
+        #bt_div {
+            height: 30%;
+        }
+
+        #start_bt {
+
+            color: white;
+            background-color: #1d202d;
+            border: 1px solid;
+            border-radius: 4px;
+            height: 50;
+            width: 200;
+            margin-left: 280;
+            margin-top: 100;
+            line-height: 40px;
+        }
+</style>
 </head>
 
 <body mode="desktop" num="2000">
@@ -103,15 +303,71 @@
                 </table>
             </div>
         </div>
-        <div id="bt_div">
-            <button id="start_bt">start</button>
+        <div class="card-3">
+             <p id="outlier"> Data History Select</p>
+            <div class=" date input-group" id="datetimepicker_id_datetime">
+                <input class=" form-control" id="startdate" name="startdate" type="text" required/>
+                <input class=" form-control" id="enddate" name="enddate" type="text" required/>
+                <button id="date_btn" onclick="btnFunction()">send</button>
+
+            </div>
+            <div id="bt_div">
+                <button id="start_bt">start</button>
+            </div>
         </div>
+
         <div>
 
         </div>
 
     </div>
 
+    <script>(function () {
+        $(document).ready(function () {
+            $("#startdate").datetimepicker({
+                    format: 'DD/MM/YYYY HH:mm'
+                }
+            );
+            $("#enddate").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm'
+            });
+        });
+    })(jQuery);
+    </script>
+    <script>
+        function btnFunction() {
+            var startdate = document.getElementById("startdate").value;
+            var enddate = document.getElementById("enddate").value;
+            {#console.log(startdate)#}
+            {#console.log(enddate)#}
+            sendData(startdate, enddate)
+        }
+
+        function sendData(startdate, enddate) {
+            var jsonData = new Object()
+            $.ajax({
+
+                url: 'GetDate/',
+                datatype: 'json',
+                async: false,
+                type: 'POST',
+                data: {'startdate': startdate, 'enddate': enddate},
+                beforeSend: function (XMLHttpRequest) {
+                },
+                success: function (data) {
+                    {#jsonData.startdate = document.getElementById("startdate").value#}
+                    {#jsonData.enddate = document.getElementById("enddate").value#}
+
+                    console.log(startdate, enddate)
+
+                },
+                error: function (request, status, error) {
+                    alert("실패")
+                }
+            });
+
+        }
+    </script>
 
     <div id="chart">
         <script>

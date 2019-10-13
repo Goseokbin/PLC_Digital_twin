@@ -27,6 +27,9 @@ VIEWS_UNITY_NAME_UNITY_ = [
     url(r'dht', views.dht, name='dht'),
     url(r'arduino', views.arduino, name='arduino'),
     url(r'unity', views.unity, name="unity"),
+
+    url(r'chart', views.chart, name="chart"),
+    url(r'GetDate', views.GetDate, name="GetDate"),
 url(r'header', views.header, name="header")
 
 ]
