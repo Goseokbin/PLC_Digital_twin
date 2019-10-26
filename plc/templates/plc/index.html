@@ -6,12 +6,12 @@
         <!-- META -->
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        
+
         <!-- TITLE -->
         <title>PLC - Data Modeling</title>
 
         <!-- Main StyleSheet -->
-        <link href="/static/style.css?ver=4" rel="stylesheet" type="text/css" />
+        <link href="/static/style.css?ver=1" rel="stylesheet" type="text/css" />
         <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen" />
         <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" />
         <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
@@ -30,21 +30,21 @@
         <!-- LayerSlider script files -->
         <script src="/static/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
         <script src="/static/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
-        
+
         <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
-        
+
 
 		<!-- bxSlider Javascript file -->
         <script src="/static/js/jquery.bxslider.js"></script>
         <script>
 		$(document).ready(function(){
 		$('.bxslider').bxSlider({
-								
+
 								pager: false,
 								controls: true,
 								auto: true
-								
-								
+
+
 								});
 		});
 		</script>
@@ -56,9 +56,9 @@
 		<script src="/static/lightbox/jquery.fancybox.js"></script>
         <script type="text/javascript">
                 $(document).ready(function() {
-                                           
+
                     $('.fancybox').fancybox();
- 		
+
                 });
         </script>
 
@@ -68,18 +68,18 @@
         $(function() {
             $(window).scroll(function() {
                 if($(this).scrollTop() != 0) {
-                    $('#gotop').fadeIn();	
+                    $('#gotop').fadeIn();
                 } else {
                     $('#gotop').fadeOut();
                 }
             });
-         
+
             $('#gotop').click(function() {
                 $('body,html').animate({scrollTop:0},800);
-            });	
+            });
         });
         </script>
-            
+
 
 
 		<!-- HEADER JQUERY -->
@@ -87,46 +87,46 @@
         $(function() {
             $(window).scroll(function() {
                 if($(this).scrollTop() >= 200) {
-                    $('.header').addClass("header_fix");	
+                    $('.header').addClass("header_fix");
                 } else {
                    $('.header').removeClass("header_fix");
                 }
-            });	
+            });
         });
         </script>
-        
-        
+
+
         <script type="text/javascript">
-        
+
 		if($(window).width() <= 900){
 		$(document).ready(function() {
-                                    
-									
-									
+
+
+
                     $('.mobile .title').click(function() {
-												
+
 												$(this).next("ul").slideToggle();
 												$(this).toggleClass("minus");
-												
+
 												});
-					
-					
- 		
+
+
+
                 });
-		
+
 		}
         </script>
-                            
+
 </head>
 
 <body>
-        
-        
-    
+
+
+
         <div class="header">
         <div class="container" >
             <div class = "main">
-                <a href="#" class="logo"><img src="/static/images/logo2.png" alt="" width="300", height="50"/></a>
+                <a href="#" class="logo"><img src="/static/images/logo.png" alt="" width="300", height="50"/></a>
             </div>
 
 
@@ -147,51 +147,51 @@
                     </ul>
                     </div>
 
-        
+
         </div>
         </div>
-        
-        
+
+
 
 
 		<div class="wrapper">
         <div class="slider_main">
         <div id="full-slider-wrapper">
         <div id="layerslider" style="width:100%;height:473px;">
-        
-        
+
+
                                 <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
                                 <img src="/static/images/slider/slide-bg.jpg" class="ls-bg" alt="Slide background"/>
-                                
-                                
+
+
                                 <div class="ls-l videopreview" style="top:87px;left:0px;white-space: nowrap;" data-ls="offsetxin:-200;durationin:2000;offsetxout:-200;">
-                                
+
                                 <iframe src="https://www.youtube.com/embed/_1SWQpMHRBc"  autoplay="0" width="443" height="290" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                                 </div>
-                                
-                                
+
+
                                 <div class="ls-l" style="top:140px;left:638px;white-space: nowrap;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
                                 <h2 class="l1">PLC Data</h2>
                                 </div>
-                                
+
                                 <div class="ls-l" style="top:200px;left:583px;white-space: nowrap;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
                                 <h2 class="l2">PLC 데이터를 실시간으로 확인 할 수 있습니다.</h2>
                                 </div>
-                                
-                            
-                                
+
+
+
                                 <div class="ls-l" style="top:265px;left:598px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
                                 <a href="#" class="button2">Learn More</a>
                                 </div>
-                                
-                                
+
+
                                 <div class="ls-l" style="top:265px;left:810px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
                                 <a href="#" class="button1">Start Now</a>
                                 </div>
-                                
-                               
+
+
                                 </div><!--FIRST SLIDE-->
-                                
+
 
                         <!--
                                 <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
@@ -228,7 +228,7 @@
             -->
 
         </div>
-        </div> 
+        </div>
         </div>
 
 
@@ -237,53 +237,53 @@
         <div class="service_section">
         <h2>Introduce Team</h2>
         <div class="container">
-        
 
-                    
+
+
                     <div class="insider">
-                   
+
                    		<div class="column">
                         <span class="fa fa-mobile"></span>
                         <h3>명제석</h3>
                         <p>팀장</p>
                         </div>
-                        
+
                         <div class="column">
                         <span class="fa fa-comment-o"></span>
                         <h3>김재훈</h3>
                         <p>팀원</p>
                         </div>
-                        
+
                         <div class="column">
                        	<span class="fa fa-heart-o"></span>
                         <h3>고석빈</h3>
                         <p>팀원</p>
                         </div>
-                   
+
                     </div>
-        
+
         </div>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <div class="feature_section" id="features">
         <div class="container">
-        
-        				
+
+
                         <div class="leftside">
                         <img src="/static/images/thumbs/feature1.png" alt=""  class="wow bounceInLeft animated" data-wow-duration="2s" data-wow-offset="300" data-wow-delay="0.2s" width="375px" />
                         </div>
 
-                        
+
                         <div class="rightside">
                         <h2>Real time  PLC Monitoring</h2>
                         <p>
 
                         </p>
-                        
+
                         <div class="feature">
                         <span class="fa fa-life-ring"></span>
                         <div class="description">
@@ -291,30 +291,30 @@
                         PLC로 부터 받은 데이터를 실시간으로 받아와 데이터를 확인 할 수 있습니다.
                         </div>
                         </div>
-                        
+
                         <br clear="all" />
-                        
+
                         <a href="#" class="button3">Start Now</a>
-                        </div>			
-        
+                        </div>
+
         </div>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <div class="feature_section ano_feature_section">
         <div class="container">
-        
-        				
+
+
                         <div class="leftside">
                         <h2>Hardware 3D monitoring</h2>
                         <p>
                             PLC 하드웨어의 동작환경을 3D 환경을 통해 실시간으로 확인 할 수 있습니다.
                             또한 사용자의 조작을 통해 하드웨어의 동작환경을 실행 해 볼 수 있습니다.
                         </p>
-                        
+
                         <div class="feature">
                         <span class="fa fa-life-ring"></span>
                         <div class="description">
@@ -328,15 +328,15 @@ The operating environment of PLC hardware can be checked in real time through 3D
                         <!--<span class="fa fa-play-circle-o "></span>-->
                         <div class="description">
                         </div>
-                        
+
                         </div>
                         </div>
-                        
-                        
+
+
                         <div class="rightside">
                         <img src="/static/images/thumbs/index2.png" alt="" class="wow bounceInRight animated imagethumb2" data-wow-offset="300" data-wow-delay="0.2s"  width="450" height="250"/>
-                        </div>			
-        
+                        </div>
+
 
         </div>
         </div>
@@ -374,74 +374,74 @@ The operating environment of PLC hardware can be checked in real time through 3D
         </div>
 
 
-        
-        
-        
+
+
+
 <!--
         <div class="common_section" id="faqs_part">
         <div class="container">
-        
+
         			<h2>Frequently Asked Questions</h2>
                     <h4>One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man</h4>
-                    
-                    
+
+
                     <div class="faqbox">
                     <div class="title">Are bears just about to extinct?</div>
                     <p>
                     Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
                     </p>
                     </div>
-                    
+
                     <div class="faqbox longer">
                     <div class="title">Will Star Wars Episode VII be awesome?</div>
                     <p>
                     Absolutely not! This theme takes privacy and security extremely seriously. Your personal information will not be shared with anyone. All interaction with this website is encrypted over HTTPS, using the same encryption technology used by banks.
                     </p>
                     </div>
-                    
-                    
+
+
                     <div class="faqbox">
                     <div class="title">Are bears just about to extinct?</div>
                     <p>
                     Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
                     </p>
                     </div>
-                    
-                    
+
+
                     <div class="faqbox">
                     <div class="title">Are bears just about to extinct?</div>
                     <p>
                     Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
                     </p>
                     </div>
-                    
-                    
+
+
                     <div class="faqbox">
                     <div class="title">Are bears just about to extinct?</div>
                     <p>
                     Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
                     </p>
                     </div>
-                    
-                    
-        
+
+
+
         </div>
         </div>
-        
-        
-        
-        
+
+
+
+
         <div class="common_section" id="testimonials_part">
         <div class="container">
-        
+
         			<h2>Trusted worldwide</h2>
                     <h4 style="margin:0 0 40px 0;">One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man</h4>
-                    
-                   
+
+
                    	<br clear="all" />
-                    
+
                     <ul class="bxslider">
-                    
+
                     <li>
                     <div class="testimonial_box">
                     <div class="quote_button"><img src="/static/images/icons/i7.png" alt="" /></div>
@@ -454,27 +454,27 @@ The operating environment of PLC hardware can be checked in real time through 3D
                     </div>
                     </div>
                     </li>
-                    
+
                     </ul>
-                    
-        
+
+
         </div>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <div class="pricing_table_section" id="pricing_part">
         <div class="container">
-        
+
         			<h2>Price Table</h2>
                     <h4>term sheet convertible note colluding bootstrapping</h4>
-                    
-                   
+
+
                    	<div class="insider">
-                    
-                    
+
+
                     <div class="block">
                     <div class="head">
                     <h2>Basic</h2>
@@ -490,8 +490,8 @@ The operating environment of PLC hardware can be checked in real time through 3D
                     <li><h5>$59 Per Month</h5> <a href="#" class="button5">SIGN UP</a></li>
                     </ul>
                     </div>
-                    
-                    
+
+
                     <div class="block">
                     <div class="head">
                     <h2>Premium</h2>
@@ -507,9 +507,9 @@ The operating environment of PLC hardware can be checked in real time through 3D
                     <li><h5>$59 Per Month</h5> <a href="#" class="button5 button6">SIGN UP</a></li>
                     </ul>
                     </div>
-                    
-                    
-                    
+
+
+
                     <div class="block">
                     <div class="head">
                     <h2>Ultimate</h2>
@@ -525,78 +525,78 @@ The operating environment of PLC hardware can be checked in real time through 3D
                     <li><h5>$59 Per Month</h5> <a href="#" class="button5">SIGN UP</a></li>
                     </ul>
                     </div>
-                    
-                    
+
+
                     </div>
-                    
-        
+
+
         </div>
         </div>
-        
+
         -->
-        
-        
+
+
         <div class="common_section" id="contact_part">
             	<h2>Get in touch with us</h2>
         <div class="container">
-        
 
-                    
-                   
+
+
+
                    	<br clear="all" />
-                    
-                    
+
+
                     <form method="post" class="hpform">
                     <input type="text" placeholder="Name" />
                     <input type="email" placeholder="Email" />
                     <textarea placeholder="Message"></textarea>
                     <input type="submit" value="SEND" />
                     </form>
-                    
-                   
-                    
-        
+
+
+
+
         </div>
         </div>
-        
-        
-        
-        
+
+
+
+
         <div class="subscribe_section" id="subscribe_part">
         <div class="container">
-        
+
         			<h2>Subscribe to our newsletter</h2>
-                    
-                   
+
+
                    	<br clear="all" />
-                    
-                    
+
+
                     <form method="post">
                     <input type="email" placeholder="Enter your e-Mail" />
                     <input type="submit" value="SUBSCRIBE" />
                     </form>
-                    
-                   
-                    
-        
+
+
+
+
         </div>
         </div>
-        
-        
-        
-        
+
+
+
+
         <div class="common_section">
         <div class="container">
 
 
             		<a href="#" class="footer_logo"><img src="images/logo.png" alt="" /></a>
-                   
-					<div class="copyright">Copyright 2016 All Right Reserved - <a href="http://www.pfind.com/goodies/landiya/">Landiya</a> Theme By <a href="http://www.pfind.com/goodies/">pFind.com Goodies</a>.</div>                    
-        
+
+					<div class="copyright">Copyright 2016 All Right Reserved - <a href="http://www.pfind.com/goodies/landiya/">Landiya</a> Theme By <a href="http://www.pfind.com/goodies/">pFind.com Goodies</a>.</div>
+
         </div>
         </div>
-        
-        
+
+
         </div><!--wrapper-->
 
 
@@ -609,8 +609,8 @@ The operating environment of PLC hardware can be checked in real time through 3D
                 hoverPrevNext: false,
                 skinsPath: 'layerslider/skins/'
             });
-        
-        
+
+
         </script>
 
 		<script src="/static/js/wow.js"></script>
@@ -645,16 +645,16 @@ The operating environment of PLC hardware can be checked in real time through 3D
 		});
 		});
         </script>
-        
-        
+
+
 		<script type="text/javascript">
-        
-        
+
+
         $(document).ready(function() {
-        
+
         if($(window).width() <= 1200){
-        
-        
+
+
         $(function() {
         $('a[href*=#]:not([href=#])').click(function() {
         if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -669,17 +669,17 @@ The operating environment of PLC hardware can be checked in real time through 3D
         }
         });
         });
-        
-        
-        
-        }
-        
-        });
-        
-        
-        </script> 
-             
 
-		
+
+
+        }
+
+        });
+
+
+        </script>
+
+
+
 </body>
 </html>
