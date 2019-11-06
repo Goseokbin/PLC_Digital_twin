@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dash-sample-apps" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dash-tektronix-350" vcs="Git" />
   </component>
 </project>

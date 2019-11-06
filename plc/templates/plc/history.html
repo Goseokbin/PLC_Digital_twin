@@ -1,162 +1,140 @@
+{% extends 'plc/base.html' %}
 {% load staticfiles %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- META -->
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <!-- TITLE -->
-    <title>PLC - Data Modeling</title>
+    {% block style %}
+        <title>PLC - Data Modeling</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="/static/js/bootstrap-input-spinner.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/static/outlierhistory.css?ver=3">
+        <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        {#	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">#}
+        {#	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">#}
+        {#	<link rel="stylesheet" type="text/css" href="/static/vendor/perfect-scrollbar/perfect-scrollbar.css">#}
+        {#	<link rel="stylesheet" type="text/css" href="/static/css/util.css">#}
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css?ver=2">
+        <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.css">
 
-    <!-- Main StyleSheet -->
-    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="css/libs/animate.css">
+    {% endblock %}
 
-
-    <!-- bxSlider CSS file -->
-    <link href="/static/css/jquery.bxslider.css" rel="stylesheet"/>
-
-
-    <!-- LayerSlider stylesheet -->
-    <link rel="stylesheet" href="/static/layerslider/css/layerslider.css" type="text/css">
-    <!-- External libraries: jQuery & GreenSock -->
-    <script src="/static/layerslider/js/jquery.js" type="text/javascript"></script>
-    <script src="/static/layerslider/js/greensock.js" type="text/javascript"></script>
-    <!-- LayerSlider script files -->
-    <script src="/static/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
-    <script src="/static/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
-    <script src="/static/js/bootstrap-input-spinner.js"></script>
-    <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
-
-<style type="text/css">
-    .tg{border-collapse:collapse;border-spacing:0; width:50%;height:500px; text-align:center}
-
-    .input-group{
-        display:flex;
-        margin-left:50px;
-    }
-    .input-group input{
-        width:60%;
-        height:30px;
-    }
-    .input-group button{
-        height:100%;
-        border-radius;
-    }
-</style>
-<script>
-     $("input[type='number']").inputSpinner()
-</script>
 
 </head>
 
 <body>
 
 
-<div class="header">
-    <div class="container">
-        <div class="main">
-            <a href="#" class="logo"><img src="/static/images/logo.png" alt="" width="300" , height="50"/></a>
+{% block content %}
+    <script>
+        $("input[type='number']").inputSpinner()
+    </script>
+    <div id="main">
+        <div id="mycontainer">
+            <div class="table100 ver3 m-b-110">
+                <div class="table100-head">
+                    <table>
+                        <thead>
+                        <tr class="row100 head">
+                            <th class="cell100 column1"> Sensor</th>
+                            <th class="cell100 column2">Max Value</th>
+                            <th class="cell100 column3">Min value</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="table100-body js-pscroll">
+                    <table>
+                        <tbody>
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Temperature</td>
+                            <td class="cell100 column2"><input type="number" id="t_max" value="50" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="t_min" value="50" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
+
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Humidity</td>
+                            <td class="cell100 column2"><input type="number" id="h_max" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="h_min" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
+
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Electronic</td>
+                            <td class="cell100 column2"><input type="number" id="e_max" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="e_min" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
+
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Infrared</td>
+                            <td class="cell100 column2"><input type="number" id="i_max" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="i_min" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="button-1">
+                                <div class="eff-1"></div>
+                                <a onclick="set_btn()"> Set </a>
+            </div>
         </div>
-
-
-        <div class="nav mobile">
-            <!--                    <div class="title">Menu <slogo2.pngpan class="fa "></slogo2.pngpan></div>-->
-            <ul>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#features">FEATURES</a></li>
-                <li><a href="model">Hardware Modeling </a></li>
-                <li><a href="real">Real Time data</a></li>
-                <li><a href="history">data history</a></li>
-            </ul>
-        </div>
-        <div class="nav mobile2">
-            <ul>
-                <li><a href="#subscribe_part">Sign in</a></li>
-                <li><a href="#subscribe_part">Sign Up</a></li>
-            </ul>
-        </div>
-
-
-    </div>
-</div>
-<div id="mycontainer">
-    <table class="tg">
-        <tr>
-            <th class="tg-0lax">Sensor</th>
-            <th class="tg-0lax">MAX_VALUE</th>
-            <th class = tg-0lax">MIN_VALUE</th>
-        </tr>
-        <tr>
-            <td class="tg-0lax">Temperature</td>
-            <td class="tg-0lax"><input type="number" id="t_max"value="500" min="10" max="50" step="1"/></td>
-            <td class="tg-0lax"><input type="number" id="t_min"value="500" min="10" max="50" step="1"/></td>
-        </tr>
-        <tr>
-            <td class="tg-0lax">humidity</td>
-            <td class="tg-0lax"><input type="number" id="h_max" value="500" min="10" max="50" step="1"/></td>
-            <td class="tg-0lax"><input type="number" id="h_min" value="500" min="10" max="50" step="1"/></td>
-        </tr>
-        <tr>
-            <td class="tg-0lax">electronic</td>
-            <td class="tg-0lax"><input type="number" id="e_max" value="500" min="10" max="50" step="1"/></td>
-            <td class="tg-0lax"><input type="number" id="e_min"value="500" min="10" max="50" step="1"/></td>
-        </tr>
-        <tr>
-            <td class="tg-ycr8">infrared</td>
-            <td class="tg-0lax"><input type="number" id="i_max"value="500" min="10" max="50" step="1"/></td>
-            <td class="tg-0lax"><input type="number" id="i_min" value="500" min="10" max="50" step="1"/></td>
-        </tr>
-    </table>
-    <button id="set_btn" onclick="set_btn()">set</button>
-</div>
-<script>
-       $("input[type='number']").inputSpinner()
-</script>
-<script>
-    function set_btn(){
-        var t_max = document.getElementById("t_max").value;
-        var t_min = document.getElementById("t_min").value;
-        var h_max = document.getElementById("h_max").value;
-        var h_min = document.getElementById("h_min").value;
-        var e_max = document.getElementById("e_max").value;
-        var e_min = document.getElementById("e_min").value;
-        var i_max = document.getElementById("i_max").value;
-        var i_min = document.getElementById("i_min").value;
-        alert(t_max);
-        var jsonData = new Object()
+        <script>
+            $("input[type='number']").inputSpinner()
+        </script>
+        <script>
+            function set_btn() {
+                var t_max = document.getElementById("t_max").value;
+                var t_min = document.getElementById("t_min").value;
+                var h_max = document.getElementById("h_max").value;
+                var h_min = document.getElementById("h_min").value;
+                var e_max = document.getElementById("e_max").value;
+                var e_min = document.getElementById("e_min").value;
+                var i_max = document.getElementById("i_max").value;
+                var i_min = document.getElementById("i_min").value;
+                var jsonData = new Object()
                 $.ajax({
 
                     url: 'SetOutlier/',
                     datatype: 'json',
                     async: false,
                     type: 'POST',
-                    data: {'t_max': t_max,
-                            't_min':t_min,
-                    'h_max':h_max,
-                    'h_min':h_min,
-                    'e_max':e_max,
-                    'e_min':e_min,
-                    'i_max':i_max,
-                    'i_min':i_min,},
+                    data: {
+                        't_max': t_max,
+                        't_min': t_min,
+                        'h_max': h_max,
+                        'h_min': h_min,
+                        'e_max': e_max,
+                        'e_min': e_min,
+                        'i_max': i_max,
+                        'i_min': i_min,
+                    },
                     beforeSend: function (XMLHttpRequest) {
                     },
                     success: function (data) {
                         jsonData.t_max = data['t_max']
-                                jsonData.t_min = data['t_min']
-                                jsonData.h_max = data['h_max']
-                                jsonData.h_min = data['h_min']
-                                jsondata.e_max = data['e_max']
-                                jsondata.e_min = data['e_min']
-                                jsondata.i_max = data['i_max']
-                                jsondata.i_min = data['i.min']
-
+                        jsonData.t_min = data['t_min']
+                        jsonData.h_max = data['h_max']
+                        jsonData.h_min = data['h_min']
+                        jsonData.e_max = data['e_max']
+                        jsonData.e_min = data['e_min']
+                        jsonData.i_max = data['i_max']
+                        jsonData.i_min = data['i.min']
+                        alert("이상점이 수정되었습니다")
 
                     },
                     error: function (request, status, error) {
@@ -164,9 +142,86 @@
                     }
                 });
 
-    }
-</script>
+            }
+        </script>
+        <script type="text/javascript">
+            window.onload = getData();
 
+            function getData() {
+                var jsonData = new Array();
+                var jsonData1 = new Array();
+                $.ajax({
+                    url: 'sendplcoutlier/',
+                    datatype: 'json',
+                    async: false,
+                    type: 'GET',
+                    data: "{}",
+                    beforeSend: function (XMLHttpRequest) {
+                    },
+                    success: function (data) {
+                        {#console.log(data)#}
+                        jsonData.push(data['number'])
+                        jsonData.push(data['date'])
 
+                        console.log(jsonData)
+                        {#jsonData1.push(data['date'])#}
+                        {#console.log(jsonData1[0][0])#}
+                        {#console.log(jsonData[0][0])#}
+
+                    },
+                    error: function (request, status, error) {
+                        alert("실패")
+                    }
+                });
+                return jsonData
+            }
+        </script>
+        <div class="chart_container">
+            <p class="graph-title">Outlier history Graph</p>
+            {% autoescape off %}
+                {{ plot_div }}
+            {% endautoescape %}
+        </div>
+
+        <div id="graph_title">
+            <p>PLC Outlier History</p>
+        </div>
+        <div id="plc_table">
+            <table class="tg" ,id="table3">
+                <tr>
+                    <th class="tg-sfiv"></th>
+                    <th class="tg-sfiv">시작</th>
+                    <th class="tg-sfiv">소재검사</th>
+                    <th class="tg-sfiv">공급전진</th>
+                    <th class="tg-sfiv">공급후진</th>
+                    <th class="tg-sfiv">배출전진</th>
+                    <th class="tg-sfiv">배출후진</th>
+                    <th class="tg-sfiv">검사</th>
+                    <th class="tg-sfiv">램프</th>
+                </tr>
+                <script>
+                    var jsonData = getData()
+
+                    for (var i = 0; i < 5; i++) {
+                        var value = jsonData[0][i];
+                        document.write("<tr>");
+                        document.write("<td class=\"tg-lgqb\">" + jsonData[1][i] + "</td>");
+                        for (var j = 0; j < 8; j++) {
+                            if (j == value) {
+                                document.write("<td class=\"tg-lgqb\">" + "●" + "</td>");
+                            } else {
+                                document.write("<td class=\"tg-lgqb\">" + "</td>");
+                            }
+                        }
+                        document.write("</tr>")
+
+                    }
+                </script>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
 </body>
 </html>
