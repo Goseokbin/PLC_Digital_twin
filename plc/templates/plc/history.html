@@ -1,645 +1,227 @@
+{% extends 'plc/base.html' %}
 {% load staticfiles %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-        <!-- META -->
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        
-        <!-- TITLE -->
+
+    {% block style %}
         <title>PLC - Data Modeling</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="/static/js/bootstrap-input-spinner.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/static/outlierhistory.css?ver=3">
+        <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        {#	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">#}
+        {#	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">#}
+        {#	<link rel="stylesheet" type="text/css" href="/static/vendor/perfect-scrollbar/perfect-scrollbar.css">#}
+        {#	<link rel="stylesheet" type="text/css" href="/static/css/util.css">#}
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css?ver=2">
+        <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.css">
 
-        <!-- Main StyleSheet -->
-        <link href="/static/style.css" rel="stylesheet" type="text/css" />
-        <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen" />
-        <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" />
-        <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
-        <link rel="stylesheet" href="css/libs/animate.css">
-
-
-		<!-- bxSlider CSS file -->
-        <link href="/static/css/jquery.bxslider.css" rel="stylesheet" />
-
-
-        <!-- LayerSlider stylesheet -->
-        <link rel="stylesheet" href="/static/layerslider/css/layerslider.css" type="text/css">
-        <!-- External libraries: jQuery & GreenSock -->
-        <script src="/static/layerslider/js/jquery.js" type="text/javascript"></script>
-        <script src="/static/layerslider/js/greensock.js" type="text/javascript"></script>
-        <!-- LayerSlider script files -->
-        <script src="/static/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
-        <script src="/static/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
-        
-        <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
-        
-
-		<!-- bxSlider Javascript file -->
-        <script src="/static/js/jquery.bxslider.js"></script>
-        <script>
-		$(document).ready(function(){
-		$('.bxslider').bxSlider({
-								
-								pager: false,
-								controls: true,
-								auto: true
-								
-								
-								});
-		});
-		</script>
+    {% endblock %}
 
 
-
-		<link rel="stylesheet" type="text/css" href="/static/lightbox/jquery.fancybox.css" media="screen" />
-		<script src="/static/lightbox/jquery.fancybox.js"></script>
-        <script type="text/javascript">
-                $(document).ready(function() {
-                                           
-                    $('.fancybox').fancybox();
- 		
-                });
-        </script>
-
-
-        <!-- GOTO TOP JQUERY -->
-        <script type="text/javascript">
-        $(function() {
-            $(window).scroll(function() {
-                if($(this).scrollTop() != 0) {
-                    $('#gotop').fadeIn();	
-                } else {
-                    $('#gotop').fadeOut();
-                }
-            });
-         
-            $('#gotop').click(function() {
-                $('body,html').animate({scrollTop:0},800);
-            });	
-        });
-        </script>
-            
-
-
-		<!-- HEADER JQUERY -->
-        <script type="text/javascript">
-        $(function() {
-            $(window).scroll(function() {
-                if($(this).scrollTop() >= 200) {
-                    $('.header').addClass("header_fix");	
-                } else {
-                   $('.header').removeClass("header_fix");
-                }
-            });	
-        });
-        </script>
-        
-        
-        <script type="text/javascript">
-        
-		if($(window).width() <= 900){
-		$(document).ready(function() {
-                                    
-									
-									
-                    $('.mobile .title').click(function() {
-												
-												$(this).next("ul").slideToggle();
-												$(this).toggleClass("minus");
-												
-												});
-					
-					
- 		
-                });
-		
-		}
-        </script>
-                            
 </head>
 
 <body>
-        
-        
-    
-        <div class="header">
-        <div class="container">
-        
-        			<a href="" class="logo"><img src="../../static/images/logo.png" alt=""></a>
-                    
-                    <div class="nav mobile">
-                    <div class="title">Menu <span class="fa "></span></div>
-                    <ul>
-                    <li><a href="#faqs_part">Team</a></li>
-                    <li><a href="#features">FEATURES</a></li>
-                    <li><a href="model">Hardware Modeling </a></li>
-                    <li><a href="real">Real Time data</a></li>
-                    <li><a href="history">data history</a></li>
-                    <li><a href="#subscribe_part">회원가입</a></li>
-                    </ul>
-                    </div>
-        
-        </div>
-        </div>
-        
-        
 
 
-		<div class="wrapper">
-        <div class="slider_main">
-        <div id="full-slider-wrapper">
-        <div id="layerslider" style="width:100%;height:473px;">
-        
-        
-                                <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
-                                <img src="/static/images/slider/slide-bg.jpg" class="ls-bg" alt="Slide background"/>
-                                
-                                
-                                <div class="ls-l videopreview" style="top:87px;left:0px;white-space: nowrap;" data-ls="offsetxin:-200;durationin:2000;offsetxout:-200;">
-                                
-                                <!--<iframe src="http://player.vimeo.com/video/34134308?portrait=0&amp;color=ff9933&autoplay=1" width="443" height="290" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
-                                <img src="/static/images/player.png" alt="" />
-                                </div>
-                                
-                                
-                                <div class="ls-l" style="top:140px;left:638px;white-space: nowrap;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <h2 class="l1">PLC Data</h2>
-                                </div>
-                                
-                                <div class="ls-l" style="top:200px;left:583px;white-space: nowrap;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <h2 class="l2">Powerfull & Effective theme for your business</h2>
-                                </div>
-                                
-                            
-                                
-                                <div class="ls-l" style="top:265px;left:598px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <a href="#" class="button2">Learn More</a>
-                                </div>
-                                
-                                
-                                <div class="ls-l" style="top:265px;left:810px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <a href="#" class="button1">Start Now</a>
-                                </div>
-                                
-                               
-                                </div><!--FIRST SLIDE-->
-                                
-                                
-                                
-                                <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
-                                <img src="/static/images/slider/slide-bg.jpg" class="ls-bg" alt="Slide background"/>
-                                
-                                
-                                <div class="ls-l videopreview" style="top:87px;left:0px;white-space: nowrap;" data-ls="offsetxin:-200;durationin:2000;offsetxout:-200;">
-                                <!--<iframe src="http://player.vimeo.com/video/34134308?portrait=0&amp;color=ff9933&autoplay=1" width="443" height="290" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
-                                <img src="/static/images/player.png" alt="" />
-                                </div>
-                                
-                                
-                                <div class="ls-l" style="top:140px;left:638px;white-space: nowrap;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <h2 class="l1">Landing Page</h2>
-                                </div>
-                                
-                                <div class="ls-l" style="top:200px;left:583px;white-space: nowrap;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <h2 class="l2">Powerfull & Effective theme for your business</h2>
-                                </div>
-                                
-                            
-                                
-                                <div class="ls-l" style="top:265px;left:598px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <a href="#" class="button2">Learn More</a>
-                                </div>
-                                
-                                
-                                <div class="ls-l" style="top:265px;left:810px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-                                <a href="#" class="button1">Start Now</a>
-                                </div>
-                                
-                               
-                                </div><!--FIRST SLIDE-->
-                                
-                     
-           
-			
-        </div>
-        </div> 
-        </div>
+{% block content %}
+    <script>
+        $("input[type='number']").inputSpinner()
+    </script>
+    <div id="main">
+        <div id="mycontainer">
+            <div class="table100 ver3 m-b-110">
+                <div class="table100-head">
+                    <table>
+                        <thead>
+                        <tr class="row100 head">
+                            <th class="cell100 column1"> Sensor</th>
+                            <th class="cell100 column2">Max Value</th>
+                            <th class="cell100 column3">Min value</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
 
+                <div class="table100-body js-pscroll">
+                    <table>
+                        <tbody>
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Temperature</td>
+                            <td class="cell100 column2"><input type="number" id="t_max" value="50" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="t_min" value="50" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
 
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Humidity</td>
+                            <td class="cell100 column2"><input type="number" id="h_max" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="h_min" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
 
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Electronic</td>
+                            <td class="cell100 column2"><input type="number" id="e_max" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="e_min" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
 
-        <div class="service_section">
-        <div class="container">
-        
-        			<h2>Take a look to see our services</h2>
-                    <h4>One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man</h4>
-                    
-                    <div class="insider">
-                   
-                   		<div class="column">
-                        <span class="fa fa-mobile"></span>
-                        <h3>Responsive layout</h3>
-                        <p>From there to here, and here to there, funny things are everywhere.</p>
-                        </div>
-                        
-                        <div class="column">
-                        <span class="fa fa-comment-o"></span>
-                        <h3>Customer support</h3>
-                        <p>From there to here, and here to there, funny things are everywhere.</p>
-                        </div>
-                        
-                        <div class="column">
-                       	<span class="fa fa-heart-o"></span>
-                        <h3>Lovely design</h3>
-                        <p>From there to here, and here to there, funny things are everywhere.</p>
-                        </div>
-                   
-                    </div>
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        
-        <div class="feature_section" id="features">
-        <div class="container">
-        
-        				
-                        <div class="leftside">
-                        <img src="/static/images/thumbs/t1.png" alt=""  class="wow bounceInLeft animated" data-wow-duration="2s" data-wow-offset="300" data-wow-delay="0.2s" />
-                        </div>
-                        
-                        
-                        <div class="rightside">
-                        <h2>Explore the awesomeness</h2>
-                        <p>
-                        Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really. The concentration is warm and intimate and like the fire inside the earth - intense but not distorted. You can go to a place, really feel it in your heart. It's actually a beautiful feeling.
-                        </p>
-                        
-                        <div class="feature">
-                        <span class="fa fa-life-ring"></span>
-                        <div class="description">
-                        <strong>Good in Performance</strong> <br />
-                        Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really.
-                        </div>
-                        </div>
-                        
-                        <br clear="all" />
-                        
-                        <a href="#" class="button3">Learn More</a>
-                        <a href="#" class="button4">Start Now</a>
-                        </div>			
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        
-        <div class="feature_section ano_feature_section">
-        <div class="container">
-        
-        				
-                        <div class="leftside">
-                        <h2>Describe more about product</h2>
-                        <p>
-                        Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really. The concentration is warm and intimate and like the fire inside the earth - intense but not distorted. You can go to a place, really feel it in your heart. It's actually a beautiful feeling.
-                        </p>
-                        
-                        <div class="feature">
-                        <span class="fa fa-life-ring"></span>
-                        <div class="description">
-                        <strong>Good in Performance</strong> <br />
-                        Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really.
-                        </div>
-                        </div>
-                        
-                        <div class="feature">
-                        <span class="fa fa-play-circle-o "></span>
-                        <div class="description">
-                        <strong>Video Background</strong> <br />
-                        Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really.
-                        </div>
-                        </div>
-                        
-                        </div>
-                        
-                        
-                        <div class="rightside">
-                        <img src="/static/images/thumbs/t2.png" alt="" class="wow bounceInRight animated imagethumb2" data-wow-offset="300" data-wow-delay="0.2s" />
-                        </div>			
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        <div class="common_section" id="faqs_part">
-        <div class="container">
-        
-        			<h2>Frequently Asked Questions</h2>
-                    <h4>One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man</h4>
-                    
-                    
-                    <div class="faqbox">
-                    <div class="title">Are bears just about to extinct?</div>
-                    <p>
-                    Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
-                    </p>
-                    </div>
-                    
-                    <div class="faqbox longer">
-                    <div class="title">Will Star Wars Episode VII be awesome?</div>
-                    <p>
-                    Absolutely not! This theme takes privacy and security extremely seriously. Your personal information will not be shared with anyone. All interaction with this website is encrypted over HTTPS, using the same encryption technology used by banks.
-                    </p>
-                    </div>
-                    
-                    
-                    <div class="faqbox">
-                    <div class="title">Are bears just about to extinct?</div>
-                    <p>
-                    Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
-                    </p>
-                    </div>
-                    
-                    
-                    <div class="faqbox">
-                    <div class="title">Are bears just about to extinct?</div>
-                    <p>
-                    Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
-                    </p>
-                    </div>
-                    
-                    
-                    <div class="faqbox">
-                    <div class="title">Are bears just about to extinct?</div>
-                    <p>
-                    Yes! But if you’d like to buy us a slice of cheap pizza, we’ll reward you with some cool bonus features.
-                    </p>
-                    </div>
-                    
-                    
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        <div class="common_section" id="testimonials_part">
-        <div class="container">
-        
-        			<h2>Trusted worldwide</h2>
-                    <h4 style="margin:0 0 40px 0;">One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man</h4>
-                    
-                   
-                   	<br clear="all" />
-                    
-                    <ul class="bxslider">
-                    
-                    <li>
-                    <div class="testimonial_box">
-                    <div class="quote_button"><img src="/static/images/icons/i7.png" alt="" /></div>
-                    <div class="para">
-                    Never expected to get such a powerful-functionality theme for this little money! It is a real pleasure to work with, I think it simply guesses my thoughts! All the customization is playfully easy, reminds more of a game rather than website setup.
-                    </div>
-                    <div class="clientinfo">
-                    <img src="/static/images/clients/c1.png" alt="" />
-                    Karen Walker
-                    </div>
-                    </div>
-                    </li>
-                    
-                    </ul>
-                    
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        
-        <div class="pricing_table_section" id="pricing_part">
-        <div class="container">
-        
-        			<h2>Price Table</h2>
-                    <h4>term sheet convertible note colluding bootstrapping</h4>
-                    
-                   
-                   	<div class="insider">
-                    
-                    
-                    <div class="block">
-                    <div class="head">
-                    <h2>Basic</h2>
-                    <p>From <strong>$59</strong> per month</p>
-                    </div>
-                    <ul>
-                    <li>Total Users <span>10</span></li>
-                    <li>Unlimited Styles <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Advance Protection <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Cloud Storage <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>24/7 Customer Service <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Backup Service <span><img src="/static/images/icons/i9.png" alt="" /></span></li>
-                    <li><h5>$59 Per Month</h5> <a href="#" class="button5">SIGN UP</a></li>
-                    </ul>
-                    </div>
-                    
-                    
-                    <div class="block">
-                    <div class="head">
-                    <h2>Premium</h2>
-                    <p>From <strong>$59</strong> per month</p>
-                    </div>
-                    <ul>
-                    <li>Total Users <span>10</span></li>
-                    <li>Unlimited Styles <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Advance Protection <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Cloud Storage <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>24/7 Customer Service <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Backup Service <span><img src="/static/images/icons/i9.png" alt="" /></span></li>
-                    <li><h5>$59 Per Month</h5> <a href="#" class="button5 button6">SIGN UP</a></li>
-                    </ul>
-                    </div>
-                    
-                    
-                    
-                    <div class="block">
-                    <div class="head">
-                    <h2>Ultimate</h2>
-                    <p>From <strong>$59</strong> per month</p>
-                    </div>
-                    <ul>
-                    <li>Total Users <span>10</span></li>
-                    <li>Unlimited Styles <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Advance Protection <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Cloud Storage <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>24/7 Customer Service <span><img src="/static/images/icons/i8.png" alt="" /></span></li>
-                    <li>Backup Service <span><img src="/static/images/icons/i9.png" alt="" /></span></li>
-                    <li><h5>$59 Per Month</h5> <a href="#" class="button5">SIGN UP</a></li>
-                    </ul>
-                    </div>
-                    
-                    
-                    </div>
-                    
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        <div class="common_section" id="contact_part">
-        <div class="container">
-        
-        			<h2>Get in touch with us</h2>
-                    <h4>term sheet convertible note colluding bootstrapping</h4>
-                    
-                   
-                   	<br clear="all" />
-                    
-                    
-                    <form method="post" class="hpform">
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <textarea placeholder="Message"></textarea>
-                    <input type="submit" value="SEND" />
-                    </form>
-                    
-                   
-                    
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        <div class="subscribe_section" id="subscribe_part">
-        <div class="container">
-        
-        			<h2>Subscribe to our newsletter</h2>
-                    
-                   
-                   	<br clear="all" />
-                    
-                    
-                    <form method="post">
-                    <input type="email" placeholder="Enter your e-Mail" />
-                    <input type="submit" value="SUBSCRIBE" />
-                    </form>
-                    
-                   
-                    
-        
-        </div>
-        </div>
-        
-        
-        
-        
-        <div class="common_section">
-        <div class="container">
-        
-        	
-            		<a href="#" class="footer_logo"><img src="images/logo.png" alt="" /></a>
-                   
-					<div class="copyright">Copyright 2016 All Right Reserved - <a href="http://www.pfind.com/goodies/landiya/">Landiya</a> Theme By <a href="http://www.pfind.com/goodies/">pFind.com Goodies</a>.</div>                    
-        
-        </div>
-        </div>
-        
-        
-        </div><!--wrapper-->
+                        <tr class="row100 body">
+                            <td class="cell100 column1">Infrared</td>
+                            <td class="cell100 column2"><input type="number" id="i_max" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                            <td class="cell100 column3"><input type="number" id="i_min" value="500" min="10" max="50"
+                                                               step="1"/></td>
+                        </tr>
 
-
-		<script>
-            jQuery("#layerslider").layerSlider({
-                responsive: false,
-                responsiveUnder: 1100,
-                layersContainer: 1100,
-                skin: 'fullwidth',
-                hoverPrevNext: false,
-                skinsPath: 'layerslider/skins/'
-            });
-        
-        
-        </script>
-
-		<script src="/static/js/wow.js"></script>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="button-1">
+                                <div class="eff-1"></div>
+                                <a onclick="set_btn()"> Set </a>
+            </div>
+        </div>
         <script>
-        wow = new WOW(
-          {
-            animateClass: 'animated',
-            offset:       100
-          }
-        );
-        wow.init();
-        document.getElementById('moar').onclick = function() {
-          var section = document.createElement('section');
-          section.className = 'section--purple wow fadeInDown';
-          this.parentNode.insertBefore(section, this);
-        };
+            $("input[type='number']").inputSpinner()
         </script>
+        <script>
+            function set_btn() {
+                var t_max = document.getElementById("t_max").value;
+                var t_min = document.getElementById("t_min").value;
+                var h_max = document.getElementById("h_max").value;
+                var h_min = document.getElementById("h_min").value;
+                var e_max = document.getElementById("e_max").value;
+                var e_min = document.getElementById("e_min").value;
+                var i_max = document.getElementById("i_max").value;
+                var i_min = document.getElementById("i_min").value;
+                var jsonData = new Object()
+                $.ajax({
 
-		<script type="text/javascript">
-		$(function() {
-		$('a[href*=#]:not([href=#])').click(function() {
-		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-		var target = $(this.hash);
-		target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-		if (target.length) {
-		$('html,body').animate({
-		scrollTop: target.offset().top - 132
-		}, 2000);
-		return false;
-		}
-		}
-		});
-		});
+                    url: 'SetOutlier/',
+                    datatype: 'json',
+                    async: false,
+                    type: 'POST',
+                    data: {
+                        't_max': t_max,
+                        't_min': t_min,
+                        'h_max': h_max,
+                        'h_min': h_min,
+                        'e_max': e_max,
+                        'e_min': e_min,
+                        'i_max': i_max,
+                        'i_min': i_min,
+                    },
+                    beforeSend: function (XMLHttpRequest) {
+                    },
+                    success: function (data) {
+                        jsonData.t_max = data['t_max']
+                        jsonData.t_min = data['t_min']
+                        jsonData.h_max = data['h_max']
+                        jsonData.h_min = data['h_min']
+                        jsonData.e_max = data['e_max']
+                        jsonData.e_min = data['e_min']
+                        jsonData.i_max = data['i_max']
+                        jsonData.i_min = data['i.min']
+                        alert("이상점이 수정되었습니다")
+
+                    },
+                    error: function (request, status, error) {
+                        alert("실패")
+                    }
+                });
+
+            }
         </script>
-        
-        
-		<script type="text/javascript">
-        
-        
-        $(document).ready(function() {
-        
-        if($(window).width() <= 1200){
-        
-        
-        $(function() {
-        $('a[href*=#]:not([href=#])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-        var target = $(this.hash);
-        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-        if (target.length) {
-        $('html,body').animate({
-        scrollTop: target.offset().top - 132
-        }, 2000);
-        return false;
-        }
-        }
-        });
-        });
-        
-        
-        
-        }
-        
-        });
-        
-        
-        </script> 
-             
+        <script type="text/javascript">
+            window.onload = getData();
 
-		
+            function getData() {
+                var jsonData = new Array();
+                var jsonData1 = new Array();
+                $.ajax({
+                    url: 'sendplcoutlier/',
+                    datatype: 'json',
+                    async: false,
+                    type: 'GET',
+                    data: "{}",
+                    beforeSend: function (XMLHttpRequest) {
+                    },
+                    success: function (data) {
+                        {#console.log(data)#}
+                        jsonData.push(data['number'])
+                        jsonData.push(data['date'])
+
+                        console.log(jsonData)
+                        {#jsonData1.push(data['date'])#}
+                        {#console.log(jsonData1[0][0])#}
+                        {#console.log(jsonData[0][0])#}
+
+                    },
+                    error: function (request, status, error) {
+                        alert("실패")
+                    }
+                });
+                return jsonData
+            }
+        </script>
+        <div class="chart_container">
+            <p class="graph-title">Outlier history Graph</p>
+            {% autoescape off %}
+                {{ plot_div }}
+            {% endautoescape %}
+        </div>
+
+        <div id="graph_title">
+            <p>PLC Outlier History</p>
+        </div>
+        <div id="plc_table">
+            <table class="tg" ,id="table3">
+                <tr>
+                    <th class="tg-sfiv"></th>
+                    <th class="tg-sfiv">시작</th>
+                    <th class="tg-sfiv">소재검사</th>
+                    <th class="tg-sfiv">공급전진</th>
+                    <th class="tg-sfiv">공급후진</th>
+                    <th class="tg-sfiv">배출전진</th>
+                    <th class="tg-sfiv">배출후진</th>
+                    <th class="tg-sfiv">검사</th>
+                    <th class="tg-sfiv">램프</th>
+                </tr>
+                <script>
+                    var jsonData = getData()
+
+                    for (var i = 0; i < 5; i++) {
+                        var value = jsonData[0][i];
+                        document.write("<tr>");
+                        document.write("<td class=\"tg-lgqb\">" + jsonData[1][i] + "</td>");
+                        for (var j = 0; j < 8; j++) {
+                            if (j == value) {
+                                document.write("<td class=\"tg-lgqb\">" + "●" + "</td>");
+                            } else {
+                                document.write("<td class=\"tg-lgqb\">" + "</td>");
+                            }
+                        }
+                        document.write("</tr>")
+
+                    }
+                </script>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
 </body>
 </html>

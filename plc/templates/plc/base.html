@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>PLC - Data Modeling</title>
+
+        <link href="/static/style.css?ver=2" rel="stylesheet" type="text/css" />
+        <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" />
+       <link rel="stylesheet" href="css/bootstrap.min.css">
+{#        <link rel="stylesheet" href="css/libs/animate.css">#}
+
+
+		<!-- bxSlider CSS file -->
+        <link href="/static/css/jquery.bxslider.css" rel="stylesheet" />
+
+
+        <!-- LayerSlider stylesheet -->
+        <link rel="stylesheet" href="/static/layerslider/css/layerslider.css" type="text/css">
+        <!-- External libraries: jQuery & GreenSock -->
+        <script src="/static/layerslider/js/jquery.js" type="text/javascript"></script>
+        <script src="/static/layerslider/js/greensock.js" type="text/javascript"></script>
+        <!-- LayerSlider script files -->
+        <script src="/static/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+        <script src="/static/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+
+        <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+		<!-- bxSlider Javascript file --> <script src="/static/js/jquery.bxslider.js"></script>
+
+        <script>
+		$(document).ready(function(){
+		$('.bxslider').bxSlider({
+
+								pager: false,
+								controls: true,
+								auto: true
+
+
+								});
+		});
+		</script>
+
+
+
+		<link rel="stylesheet" type="text/css" href="/static/lightbox/jquery.fancybox.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/static/lightbox/jquery.fancybox.css" media="screen" />
+		<script src="/static/lightbox/jquery.fancybox.js"></script>
+        <script type="text/javascript">
+                $(document).ready(function() {
+
+                    $('.fancybox').fancybox();
+
+                });
+        </script>
+
+
+        <!-- GOTO TOP JQUERY -->
+        <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() != 0) {
+                    $('#gotop').fadeIn();
+                } else {
+                    $('#gotop').fadeOut();
+                }
+            });
+
+            $('#gotop').click(function() {
+                $('body,html').animate({scrollTop:0},800);
+            });
+        });
+        </script>
+
+
+
+		<!-- HEADER JQUERY -->
+        <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() >= 200) {
+                    $('.header').addClass("header_fix");
+                } else {
+                   $('.header').removeClass("header_fix");
+                }
+            });
+        });
+        </script>
+
+
+        <script type="text/javascript">
+
+		if($(window).width() <= 900){
+		$(document).ready(function() {
+
+
+
+                    $('.mobile .title').click(function() {
+
+												$(this).next("ul").slideToggle();
+												$(this).toggleClass("minus");
+
+												});
+
+
+
+                });
+
+		}
+        </script>
+
+    {% endblock %}
+    {% block style %}
+    {% endblock %}
+
+</head>
+<body>
+     <div class="header">
+        <div class="nav_main" >
+            <div class = "main">
+                <a href="{% url 'index' %}" class="logo"><img src="/static/images/logo.png" id="logoimg" alt="" width="250px", height="100px"/></a>
+            </div>
+
+
+                    <div class="nav mobile" >
+<!--                    <div class="title">Menu <slogo2.pngpan class="fa "></slogo2.pngpan></div>-->
+                    <ul>
+                    <li><a href=#team">Team</a></li>
+                    <li><a href="{% url 'index' %}">FEATURES</a></li>
+                    <li><a href="model">Hardware Modeling </a></li>
+                    <li><a href={% url 'dht'%}>Real Time data</a></li>
+                    <li><a href={% url 'OutlierHistory' %}>Outlier data</a></li>
+                    </ul>
+                    </div>
+              <div class="nav mobile2">
+                  <ul>
+                        <li><a href="#subscribe_part">Sign in</a></li>
+                        <li><a href="#subscribe_part">Sign Up</a></li>
+                    </ul>
+                    </div>
+
+
+        </div>
+        </div>
+ {%block content %}
+    {% endblock %}
+
+</body>
+</html>

@@ -19,22 +19,20 @@ from plc.views import *
 
 VIEWS_UNITY_NAME_UNITY_ = [
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'model', views.model, name='model'),
     url(r'history', views.history, name='history'),
-    url(r'real', views.real, name='real'),
+    url(r'base', views.base, name='base'),
 
-    url(r'temp', views.GetArduino, name='temp'),
-    url(r'dht', views.dht, name='dht'),
+    url(r'dht', views.GetMaxdata, name='dht'),
     url(r'arduino', views.arduino, name='arduino'),
-    url(r'unity', views.unity, name="unity")
+    url(r'unity', views.unity, name="unity"),
+    url(r'table', views.table, name="table"),
+
+    url(r'GetDate', views.GetDate, name="GetDate"),
+    url(r'GetOutlier',views.GetOutlier,name="GetOutlier"),
+    url(r'OutlierHistory',views.OutlierHistory,name="OutlierHistory"),
+    url(r'SetOutlier',views.SetOutlier,name="SetOutlier"),
+    url(r'sendplcoutlier',views.sendplcoutlier,name="sendplcoutlier"),
 
 ]
-
-app_name='plc'
-url(r'temp',views.GetArduino, name='temp'),
-url(r'dht',views.dht, name='dht'),
-url(r'arduino',views.arduino, name='arduino'),
-url(r'unity', views.unity, name="unity")
-
 
 urlpatterns = VIEWS_UNITY_NAME_UNITY_
