@@ -1,0 +1,192 @@
+ body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #1e2130;
+        }
+        .logo img{
+            width: 350;
+            height: 100;
+        }
+        .header{
+            background-color:#1e2130;
+        }
+        .nav{
+            margin: 20;
+        }
+        .nav ul li a {
+            color: white;
+        }
+
+        @font-face {
+            font-family: 'led';
+            src: url("/static/fonts/led_board-7.ttf") format("truetype");
+        }
+
+
+        #chart {
+            float: left;
+            height: 500;
+            width: 57%;
+            background-color: ivory;
+
+        }
+
+        #chart1 {
+            float: left;
+            height: 500;
+            width: 60%;
+
+        }
+
+        .mini {
+
+            display: inline-block;
+            float: left;
+            width: 200;
+            height: 100;
+            text-align: center;
+            margin: 30;
+            padding: 10;
+            border: 1px solid white;
+            color: white;
+            font-size: 20;
+        }
+
+        .mini div {
+            margin: 30;
+            padding: 10;
+        }
+
+        .mini h6 {
+            margin: 10;
+            padding: 10;
+        }
+
+
+
+        .info {
+
+            float: right;
+            width: 40%;
+            height: 1000;
+            border: 1px solid white
+        }
+
+        .card-1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            widht: 100%;
+            margin-bottom: 3rem;
+            margin: 50;
+            text-align: center
+        }
+
+        #op_id {
+            margin: 2rem;
+            color: white;
+            font-size: 20px;
+        }
+
+        #operator-led {
+            width: 160;
+            height: 120;
+            margin-left: 250;
+            border: 1px solid white
+        }
+
+        #operator-led > div {
+            width: 80%;
+
+
+        }
+
+        #operator-led > h6 {
+            margin-top: 30;
+
+        }
+
+        #operator-led > p {
+            font-size: 50px;
+            font-family: led;
+            margin-top: 40;
+            color: #92E0D3;
+        }
+
+        .card-2 {
+            height: 40%;
+            text-align: center;
+            margin-top: 100;
+        }
+
+        #outlier {
+            margin: 2rem;
+            color: white;
+            font-size: 20px;
+        }
+
+        #outlier_table {
+            width: 160;
+            height: 120;
+            margin-left: 170;
+
+        }
+
+        table {
+            width: 400;
+            height: 300;
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            color: white;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: white;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            color: white;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: white;
+        }
+
+        .tg .tg-jqnn {
+            font-size: 20px;
+            color: #ffffff;
+            border-color: #ffffff;
+            text-align: center;
+            vertical-align: top
+        }
+
+        #bt_div {
+            height: 30%;
+        }
+
+        #start_bt {
+
+            color: white;
+            background-color: #1d202d;
+            border: 1px solid;
+            border-radius: 4px;
+            height: 50;
+            width: 200;
+            margin-left: 280;
+            margin-top: 100;
+            line-height: 40px;
+        }

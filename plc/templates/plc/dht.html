@@ -1,89 +1,572 @@
 {% load staticfiles %}
+
 <html>
-  <head>
-      <script src="https://d3js.org/d3.v4.min.js"></script>
-       <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-      <style>
-         body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
+<head>
 
 
-    #chart {
-      max-width: 1000px;
-      max-height: 800px;
-    }
-      </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>
+
+
+    <link href="/static/style.css?ver=1" rel="stylesheet" type="text/css"/>
+    {#   <link href="/static/dht_style.css" rel="stylesheet" type="text/css"/>#}
+    <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+
     <title>DHT11 Temperature/Humidity monitoring</title>
-  </head>
+    <style>
+        html body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #F2F5FA;
+            height: 100%;
+        }
 
-  <body mode="desktop" num="2000">
-    {% block content %}
-    <div id="chart"></div>
+        .main {
+            width: 100%;
+            height: 90%;
+            float: left;
+        }
+
+        .logo img {
+            width: 350;
+            height: 100;
+        }
+
+        .header {
+            background-color: #F0F8FF;
+            height: 10%
+        }
+
+        .nav {
+            margin: 20;
+        }
+
+
+        .nav ul li a {
+            color: black;
+        }
+
+        @font-face {
+            font-family: 'led';
+            src: url("/static/fonts/led_board-7.ttf") format("truetype");
+        }
+
+        #sensor_average {
+            float: left;
+            width: 59%;
+            display: inline-block;
+            margin-botton: 20;
+        }
+
+        .chart_container {
+            width: 58%;
+            display: inline-block;
+            margin-bottom: 2em
+        }
+
+        .graph-title {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            font-size: 30;
+        }
+
+
+        #chart {
+            float: left;
+            height: 500;
+            width: 100%;
+
+
+        }
+
+        #chart2 {
+            float: left;
+            height: 500;
+            width: 100%;
+
+
+        }
+
+        #mini_title {
+            font-family: "Open Sans", sans-serif;
+            font-weight: 800;
+            margin: 10;
+            font-size: 30;
+        }
+
+        .mini {
+
+            display: inline-block;
+            float: left;
+            width: 200;
+            height: 100;
+            text-align: center;
+            margin: 15;
+            padding: 10;
+            border: 1px solid black;
+            color: black;
+            font-size: 20;
+            margin-left: 10;
+            border-radius: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .07);
+            border: solid 1px #ebedf2;
+            background-color: #fff
+        }
+
+        #svg-container {
+            width: 100%
+        }
+
+        #main-svg {
+            width: 100%
+        }
+
+        .mini div {
+            margin: 30;
+            margin-right: 50
+            padding: 10;
+        }
+
+        .mini h6 {
+            margin: 10;
+            padding: 10;
+        }
+
+
+        .info {
+
+            float: right;
+            width: 40%;
+            height: 165%;
+            border: 1px solid black;
+        }
+
+        .card-1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            widht: 100%;
+            height: 30%;
+
+            text-align: center
+        }
+
+        #op_id {
+            margin: 1rem;
+            color: black;
+            font-size: 20px;
+        }
+
+        #operator-led {
+            width: 160;
+            height: 120;
+            margin-left: 260;
+            border: 1px solid black
+        }
+
+        #operator-led > div {
+            width: 80%;
+
+
+        }
+
+        #operator-led > h6 {
+            margin-top: 30;
+
+        }
+
+        #operator-led > p {
+            font-size: 50px;
+            font-family: led;
+            margin-top: 40;
+            color: #92E0D3;
+        }
+
+        .card-2 {
+            height: 40%;
+            text-align: center;
+
+        }
+
+        #outlier {
+            margin-top: 2rem;
+
+            color: black;
+            font-size: 20px;
+        }
+
+        #outlier_table {
+            width: 160;
+            height: 120;
+            margin-left: 150;
+            margin-top: 40;
+
+        }
+
+        .card-3 {
+            text-align: center;
+            height: 20%;
+
+        }
+
+        #outlier2 {
+            font-size: 20px;
+        }
+
+        table {
+            width: 400;
+            height: 300;
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            color: black;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: black;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            color: black;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: black;
+        }
+
+        .tg .tg-jqnn {
+            font-size: 20px;
+            color: #ffffff;
+            border-color: #ffffff;
+            text-align: center;
+            vertical-align: top
+        }
+
+
+        #date input-group {
+
+        }
+
+        #date_btn {
+
+            color: black;
+            background-color: white;
+            border: 1px solid;
+            border-radius: 4px;
+            height: 30;
+            width: 100;
+            margin: 30;
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body mode="desktop" num="2000">
+
+
+{% block container %}
+
+    <div class="header">
+        <div class="container">
+            <div class="main">
+                <a href="#" class="logo"><img src="/static/images/logo.png" alt="" width="300" , height="50"/></a>
+            </div>
+
+
+            <div class="nav mobile">
+                <!--                    <div class="title">Menu <slogo2.pngpan class="fa "></slogo2.pngpan></div>-->
+                <ul>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#features">FEATURES</a></li>
+                    <li><a href="model">Hardware Modeling </a></li>
+                    <li><a href="real">Real Time data</a></li>
+                    <li><a href="history">data history</a></li>
+                </ul>
+            </div>
+            <div class="nav mobile2">
+                <ul>
+                    <li><a href="#subscribe_part">Sign in</a></li>
+                    <li><a href="#subscribe_part">Sign Up</a></li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="main">
+        <div id="sensor_average">
+            <p id="mini_title">MAX DATA</p>
+            <div id="temp" class="mini">
+                <h6 id="temp_text">{{ MAX_Temperature }}</h6>
+                <p>Temperature</p>
+            </div>
+            <div id="humi" class="mini">
+                <h6 id="humi_text">{{ MAX_Humidity }}</h6>
+                <p>Humidity</p>
+            </div>
+            <div id="elec" class="mini">
+                <h6 id="elec_text">2234</h6>
+                <p>electronic</p>
+            </div>
+            <div id="infra" class="mini">
+                <h6 id="infra_text">24123</h6>
+                <p>infrared</p>
+            </div>
+        </div>
+        <div class="info">
+            <div class="card-1">
+                <p id="op_id">Operator ID</p>
+                <div id="operator-led">
+                    <p>2353</p>
+                </div>
+            </div>
+            <div class="card-2">
+                <p id="outlier">Recent Outlier data</p>
+                <div id="outlier_table">
+                    <table class="tg">
+                        <tr>
+                            <th class="tg-il3a">Sensor</th>
+                            <th class="tg-il3a">Time</th>
+                            <th class="tg-il3a">value</th>
+                        </tr>
+                        <tr>
+                            <td class="tg-il3a">{{ sensor.0 }}</td>
+                            <td class="tg-il3a">{{ date.0 }}</td>
+                            <td class="tg-il3a">{{ value.0 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-il3a">{{ sensor.1 }}</td>
+                            <td class="tg-il3a">{{ date.1 }}</td>
+                            <td class="tg-il3a">{{ value.1 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-il3a">{{ sensor.2 }}</td>
+                            <td class="tg-il3a">{{ date.2 }}</td>
+                            <td class="tg-il3a">{{ value.2 }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card-3">
+                <p id="outlier2"> Data History Select</p>
+                <input type="text" name="startdate" id="startdate"/>
+                <button id="date_btn" onclick="btnFunction()">select</button>
+
+                <script>
+                    $(function () {
+                        $('input[name="startdate"]').daterangepicker({
+                            timePicker: true,
+                            startDate: moment().startOf('hour'),
+                            endDate: moment().startOf('hour').add(32, 'hour'),
+                            timePicker24Hour: true,
+                            locale: {
+                                format: 'YYYY/M/DD hh:mm A'
+                            }
+                        });
+                    });
+                </script>
+            </div>
+
+            <div>
+
+            </div>
+
+        </div>
+
         <script>
-              var data = getData()
-      var time = new Date()
+            function btnFunction() {
+                var startdate = document.getElementById("startdate").value;
+                sendData(startdate)
+            }
 
+            function sendData(startdate) {
+                var jsonData = new Object()
+                $.ajax({
 
-     Plotly.plot('chart', [
-     {
-    x:[time],
-  y: [data['temp']],
-  mode: 'lines',
-  marker: {color: 'pink', size: 8},
-  line: {width: 4},
-  name:'Temperature'
-}, {
-         x:[data['time']],
-  y: [data['humi']],
-  mode: 'lines',
-  marker: {color: 'gray', size:8},
-  line: {width: 4},
-  name:'Humidity'
-}]);
-      var cnt =0;
+                    url: 'GetDate/',
+                    datatype: 'json',
+                    async: false,
+                    type: 'POST',
+                    data: {'startdate': startdate,},
+                    beforeSend: function (XMLHttpRequest) {
+                    },
+                    success: function (data) {
+                        console.log(startdate)
 
-    var interval = setInterval(function() {
-        var data = getData();
-        var time = new Date();
-     Plotly.extendTraces('chart', {
-          x: [[time], [time]],
-          y: [[data['temp']], [data['humi']]]
-    }, [0, 1])
+                    },
+                    error: function (request, status, error) {
+                        alert("실패")
+                    }
+                });
 
-
-     cnt = cnt+1;
-     console.log(cnt)
- // if(cnt === 100) clearInterval(interval);
-
-}, 1000);
-
-
-
-        function getData() {
-              var jsonData = new Object();
-               $.ajax({
-                  url: 'arduino/',
-                  datatype: 'json',
-                  async: false,
-                  type: 'GET',
-                  data: "{}",
-                  beforeSend: function(XMLHttpRequest){},
-                  success: function (data) {
-                      jsonData.temp = data['temperature']
-                      jsonData.humi = data['humi']
-                      jsonData.date = data['date']
-                      jsonData.time = data['time']
-                  },
-                  error: function (request, status, error) {
-                      alert("실패")
-                  }
-              });
-               return jsonData
-          }
+            }
         </script>
-  {% endblock %}
-  </body>
+        <div class="chart_container">
+            <p class="graph-title">Temperature/Humidity Graph</p>
+            <div id="chart">
+            </div>
+            <script>
+                var data = getData()
+                var time = new Date()
+
+
+                Plotly.plot('chart', [
+                    {
+                        x: [time],
+                        y: [data['temp']],
+                        mode: 'lines',
+                        marker: {color: 'pink', size: 8},
+                        line: {width: 4},
+                        name: 'Temperature'
+                    }, {
+                        x: [data['time']],
+                        y: [data['humi']],
+                        mode: 'lines',
+                        marker: {color: 'gray', size: 8},
+                        line: {width: 4},
+                        name: 'Humidity'
+                    },
+                ]);
+                var cnt = 0;
+
+                var interval = setInterval(function () {
+                    var data = getData();
+                    var time = new Date();
+                    Plotly.extendTraces('chart', {
+                        x: [[time], [time]],
+                        y: [[data['temp']], [data['humi']]],
+
+
+                    }, [0, 1])
+
+
+                }, 10000);
+
+
+                function getData() {
+                    var jsonData = new Object();
+
+                    $.ajax({
+                        url: 'arduino/',
+                        datatype: 'json',
+                        async: false,
+                        type: 'GET',
+                        data: "{}",
+                        beforeSend: function (XMLHttpRequest) {
+                        },
+                        success: function (data) {
+                            jsonData.temp = 20;
+                            jsonData.humi = 30;
+                            jsonData.date = data['date']
+                            jsonData.time = data['time']
+
+
+                        },
+                        error: function (request, status, error) {
+                            alert("실패")
+                        }
+                    });
+                    return jsonData
+                }
+            </script>
+        </div>
+        <div class="chart_container">
+            <p class="graph-title">Electronic/Infrared Graph</p>
+            <div id="chart2">
+                <script>
+                    var data = getData()
+                    var time = new Date()
+
+
+                    Plotly.plot('chart2', [
+                        {
+                            x: [time],
+                            y: [data['temp']],
+                            mode: 'lines',
+                            marker: {color: 'pink', size: 8},
+                            line: {width: 4},
+                            name: 'Temperature'
+                        }, {
+                            x: [data['time']],
+                            y: [data['humi']],
+                            mode: 'lines',
+                            marker: {color: 'gray', size: 8},
+                            line: {width: 4},
+                            name: 'Humidity'
+                        },
+                    ]);
+                    var cnt = 0;
+
+                    var interval = setInterval(function () {
+                        var data = getData();
+                        var time = new Date();
+                        Plotly.extendTraces('chart', {
+                            x: [[time], [time]],
+                            y: [[data['temp']], [data['humi']]]
+                        }, [0, 1])
+
+
+                    }, 100000);
+
+
+                    function getData() {
+                        var jsonData = new Object();
+                        $.ajax({
+                            url: 'arduino/',
+                            datatype: 'json',
+                            async: false,
+                            type: 'GET',
+                            data: "{}",
+                            beforeSend: function (XMLHttpRequest) {
+                            },
+                            success: function (data) {
+                                jsonData.temp = data['temperature']
+                                jsonData.humi = data['humi']
+                                jsonData.date = data['date']
+                                jsonData.time = data['time']
+                            },
+                            error: function (request, status, error) {
+                                alert("실패")
+                            }
+                        });
+                        return jsonData
+                    }
+                </script>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+</body>
 </html>
