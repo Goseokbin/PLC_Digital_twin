@@ -24,7 +24,7 @@ import codecs
 def index(request):
     return render(request, 'plc/index.html', {});
 def table(request):
-    return render(request, 'plc/table.html', {});
+    return render(request, 'plc/test.html', {});
 
 
 def history(request):
@@ -40,8 +40,9 @@ def dht(request):
 
 
 def unity(request):
+    return render(request, "plc/unity.html")
+def webgl(request):
     return render(request, "plc/webgl.html")
-
 
 class IndexView(TemplateView):
     template_name = "plc/index.html"
@@ -151,17 +152,12 @@ def GetOutlier():
 def OutlierHistory(request):
     conn = pymysql.connect(host='localhost', user='root', password='1234', db='Graduation', charset='utf8')
     sql = "SELECT value,sensor,DATE_FORMAT(date, '%Y/%m/%d %H:%i')as date FROM plc_outlier_data "
-    sql2 = "SELECT number,DATE_FORMAT(date, '%Y/%m/%d %H:%i')as date FROM plc_outlier order by date desc "
 
     df = pd.read_sql(sql, conn)
-    df2 = pd.read_sql(sql2,conn)
-    print(df2)
-    date, values, sensor ,date2,number= [], [], [],[],[]
+    date, values, sensor = [], [], []
     date = list(df.date.values)
     values = list(df.value.values)
     sensor = list(df.sensor.values)
-    date2 = list(df2.date.values)
-    number = list(df2.number.values)
     print(date)
     x = date
     y = values
@@ -181,9 +177,8 @@ def OutlierHistory(request):
 
     plot = opy.plot(fig,output_type='div')
 
-    return render(request, "plc/history.html", context={'plot_div': plot,
-                                                        'number':number,
-                                                        'date':date2})
+    return render(request, "plc/history.html", context={'plot_div': plot
+                                                        })
 
 
 @csrf_exempt
@@ -206,18 +201,19 @@ def SetOutlier(request):
     conn.close()
     return HttpResponse("이상점 설정이 완료되었습니다")
 
-
+@csrf_exempt
 def getPLC(request):
-    ser = serial.Serial(
-        port='COM3',
-        baudrate=9600,
-        timeout=1,
-        bytesize=serial.EIGHTBITS,)
-
-    enq=u"\u0005"
-    etx = u"\u0004"
-
-    start1 = enq + "00RSS0205%MX2004%MX1" + etx
+    print ("hi")
+    # ser = serial.Serial(
+    #     port='COM3',
+    #     baudrate=9600,
+    #     timeout=1,
+    #     bytesize=serial.EIGHTBITS,)
+    #
+    # enq=u"\u0005"
+    # etx = u"\u0004"
+    #
+    # start1 = enq + "00RSS0205%MX2004%MX1" + etx
 
     out = ''
 
@@ -228,7 +224,7 @@ def getPLC(request):
     # ser.write(s.encode("ASCII"))
 
     # ser.write(bytearray(start1, 'ascii'))
-    ser.write(bytearray(start1, 'ascii'))
+    # ser.write(bytearray(start1, 'ascii'))
 
     # while True:
     #     ser.write(bytearray(start1, 'ascii'))
@@ -240,42 +236,39 @@ def getPLC(request):
     #         print(out)
     #     else:
     #         print("out이 없음")
-    return render(request,'plc/model.html',context={'id':1})
+    return render(request,'plc/webgl.html',context={'id':1})
 
-def setPLC(request):
+def connectPLC(request):
     ser = serial.Serial(
         port='COM3',
         baudrate=9600,
         timeout=1,
-        bytesize=serial.EIGHTBITS, )
-
-    enq = u"\u0005"
-    etx = u"\u0004"
-
-    start1 = enq + "00RSS0205%MX2004%MX1" + etx
-
-    out = ''
-
-    # s = codecs.encode(s.encode(), 'hex_codec')
-    # get keyboard input
-    # ser.write(bytes((chr(37)+s+chr(35)).encode("hex")))
-
-    # ser.write(s.encode("ASCII"))
-
-    # ser.write(bytearray(start1, 'ascii'))
-    ser.write(bytearray(start1, 'ascii'))
-
-    while True:
-        ser.write(bytearray(start1, 'ascii'))
-
-        out = ser.readline()
-
-        ser.close()
-        if out != '':
-            print(out)
-        else:
-            print("out이 없음")
-    return render(request, 'plc/model.html', context={'id': 1})
+        bytesize=serial.EIGHTBITS )
+    return ser
+# def setPLC(request,ser):
+#
+#          ser = serial.Serial(
+#           port='COM3',
+#          baudrate=9600,
+#          timeout=1,
+#          bytesize=serial.EIGHTBITS, )
+#
+#          enq = u"\u0005"
+#          etx = u"\u0004"
+#
+#          start1 = enq + "00WSS0106%MX101" + etx
+#          out = ''
+#
+#          while True:
+#             ser.write(bytearray(start1, 'ascii'))
+#             out = ser.readline()
+#
+#             ser.close()
+#             if out != '':
+#              print(out)
+#             else:
+#              print("out이 없음")
+#     return render(request, 'plc/webgl.html', context={'id': 1})
 
 def sendplcoutlier(request):
     conn = pymysql.connect(host='localhost', user='root', password='1234', db='Graduation', charset='utf8')
@@ -286,7 +279,6 @@ def sendplcoutlier(request):
     date = list(df.date.values)
     context={'number':value,
              'date':date}
-    print(context)
 
     return JsonResponse(context, safe=False)
 

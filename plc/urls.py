@@ -32,6 +32,10 @@ VIEWS_UNITY_NAME_UNITY_ = [
     url(r'OutlierHistory',views.OutlierHistory,name="OutlierHistory"),
     url(r'SetOutlier',views.SetOutlier,name="SetOutlier"),
     url(r'sendplcoutlier',views.sendplcoutlier,name="sendplcoutlier"),
+    # url(r'setPLC',views.setPLC,name="setPLC"),
+    url(r'getPLC',views.getPLC,name="getPLC"),
+    url(r'webgl',views.webgl,name="webgl"),
+
 
 ]
 
