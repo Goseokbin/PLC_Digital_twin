@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'plc.apps.PlcConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,15 @@ INSTALLED_APPS = [
     'gdproject',
 
 ]
+ASGI_APPLICATION = "gdproject.routing.application"
+CHANNEL_LAYERS = {
+    'DEFAULT' : {
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            'hosts': [('localhost', 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
