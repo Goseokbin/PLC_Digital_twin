@@ -1,0 +1,247 @@
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- META -->
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- TITLE -->
+    <title>PLC - Data Modeling</title>
+
+    <!-- Main StyleSheet -->
+    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="css/libs/animate.css">
+
+
+    <!-- bxSlider CSS file -->
+    <link href="/static/css/jquery.bxslider.css" rel="stylesheet"/>
+
+
+    <!-- LayerSlider stylesheet -->
+    <link rel="stylesheet" href="/static/layerslider/css/layerslider.css" type="text/css">
+    <!-- External libraries: jQuery & GreenSock -->
+    <script src="/static/layerslider/js/jquery.js" type="text/javascript"></script>
+    <script src="/static/layerslider/js/greensock.js" type="text/javascript"></script>
+    <!-- LayerSlider script files -->
+    <script src="/static/layerslider/js/layerslider.transitions.js" type="text/javascript"></script>
+    <script src="/static/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+
+    <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+    <!-- bxSlider Javascript file -->
+    <script src="/static/js/jquery.bxslider.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                pager: false,
+                controls: true,
+                auto: true
+            });
+        });
+    </script>
+
+
+    <link rel="stylesheet" type="text/css" href="/static/lightbox/jquery.fancybox.css" media="screen"/>
+    <script src="/static/lightbox/jquery.fancybox.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.fancybox').fancybox();
+        });
+    </script>
+
+    <!-- GOTO TOP JQUERY -->
+    <script type="text/javascript">
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() != 0) {
+                    $('#gotop').fadeIn();
+                } else {
+                    $('#gotop').fadeOut();
+                }
+            });
+
+            $('#gotop').click(function () {
+                $('body,html').animate({scrollTop: 0}, 800);
+            });
+        });
+    </script>
+
+
+    <!-- HEADER JQUERY -->
+    <script type="text/javascript">
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 200) {
+                    $('.header').addClass("header_fix");
+                } else {
+                    $('.header').removeClass("header_fix");
+                }
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        if ($(window).width() <= 900) {
+            $(document).ready(function () {
+                $('.mobile .title').click(function () {
+                    $(this).next("ul").slideToggle();
+                    $(this).toggleClass("minus");
+                });
+            });
+        }
+    </script>
+    <link rel="shortcut icon" href="/static/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="/static/TemplateData/style.css">
+
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <!--<a href="#" class="logo"><img src="/static/images/logo2.png" alt="" width="300", height="50"/></a>
+        -->
+        <a href="" class="logo"><img src="../../static/images/logo.png" alt=""></a>
+
+        <div class="nav mobile">
+            <div class="title">Menu
+                <slogo2.pngpan class="fa "></slogo2.pngpan>
+            </div>
+            <ul>
+                <li><a href="#" class="logo"><img src="/static/images/logo2.png" alt="" width="200" , height="50"/></a>
+                </li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#features">FEATURES</a></li>
+                <li><a href="model">Hardware Modeling </a></li>
+                <li><a href="real">Real Time data</a></li>
+                <li><a href="history">data history</a></li>
+                <li><a href="#subscribe_part">회원가입</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div>
+    <input type="text" id="plc_data" value={{ out }}>
+    <p>PLC가 들어갈 곳입니다.</p>
+</div>
+    <script type="text/javascript">
+
+        var socket = new WebSocket('ws://' + window.location.host + '/ws/unity/plcmodel' );
+
+        socket.onopen = function open(){
+            console.log('Websocket connection created');
+        }
+
+        if(socket.readyState == WebSocket.OPEN){
+            socket.onopen = function(e){
+                console.log("open", e);
+            };
+        }
+
+        socket.onmessage = function (e) {
+            console.log("message", e["data"]);
+        };
+                {#var interval = setInterval(function(){#}
+                {#    var data = readData();#}
+
+                {#window.onload = setInterval(setPLC,1000);#}
+                {##}
+                {# function setPLC() {#}
+                {#    $.ajax({#}
+                {#        url: 'setPLC/',#}
+                {#        datatype: 'json',#}
+                {#        async: false,#}
+                {#        type: 'POST',#}
+                {#        data: {#}
+                {#            "plcon": 1,#}
+                {#        },#}
+                {#        beforeSend: function (XMLHttpRequest) {#}
+                {#        },#}
+                {#        success: function (data) {#}
+                {#        },#}
+                {#        error: function (request, status, error) {#}
+                {#            alert("PLC data load failure")#}
+                {#        }#}
+                {#    });#}
+                {#    return;#}
+                {#'} #}
+    </script>
+<script>
+    if(typeof(EventSource) !== "undefined") {
+        var source = new EventSource("/unity/plcmodel");
+        source.onopen = function() {
+            document.getElementById("myH1").innerHTML = "Getting server updates";
+        };
+
+  source.onmessage = function(event) {
+    document.getElementById("myDIV").innerHTML += event.data + "<br>";
+  };
+
+} else {
+  document.getElementById("myDIV").innerHTML = "Sorry, your browser does not support server-sent events...";
+}
+</script>
+<script src="/static/js/wow.js"></script>
+{#<script>#}
+{#    wow = new WOW(#}
+{#        {#}
+{#            animateClass: 'animated',#}
+{#            offset: 100#}
+{#        }#}
+{#    );#}
+{#    wow.init();#}
+{#    document.getElementById('moar').onclick = function () {#}
+{#        var section = document.createElement('section');#}
+{#        section.className = 'section--purple wow fadeInDown';#}
+{#        this.parentNode.insertBefore(section, this);#}
+{#    };#}
+{#</script>#}
+
+<script type="text/javascript">
+    $(function () {
+        $('a[href*=#]:not([href=#])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top - 132
+                    }, 2000);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($(window).width() <= 1200) {
+            $(function () {
+                $('a[href*=#]:not([href=#])').click(function () {
+                    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                        var target = $(this.hash);
+                        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                        if (target.length) {
+                            $('html,body').animate({
+                                scrollTop: target.offset().top - 132
+                            }, 2000);
+                            return false;
+                        }
+                    }
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>
