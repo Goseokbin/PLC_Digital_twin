@@ -1,15 +1,21 @@
 html body {
 
-    height: 160%;
-    color:#6e6e6e;
+    height: 100%;
+    color: #6e6e6e;
+    background-color: #fff;
 }
 
 #main {
     font-family: "Open Sans", sans-serif;
-    background-color: #F2F5FA;
+    background-color: rgba(203, 203, 210, 0.15);;
     width: 100%;
-    height: 90%;
+    height: auto;
     float: left;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
 
 @font-face {
@@ -18,22 +24,42 @@ html body {
 }
 
 #sensor_average {
+    grid-area: 1 / 1 / 2 / 5;
     float: left;
-    width: 59%;
+    width: 95%;
     display: inline-block;
-    margin-botton: 20;
+    border: 1px solid rgba(0, 0, 0, .125);
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    background-color: white;
 }
 
 .chart_container {
-    width: 58%;
+    background-color: white;
+    grid-area: 2 / 1 / 4 / 5;
+    width: 95%;
     display: inline-block;
-    margin-bottom: 2em
+    border: 1px solid rgba(0, 0, 0, .125);
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.chart_container2 {
+    background-color: white;
+    grid-area: 4 / 1 / 6 / 5;
+    width: 95%;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, .125);
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .graph-title {
+    background-color: white;
     font-family: "Open Sans", sans-serif;
     font-weight: 800;
-    margin: 20px 0 20px 20px;
+    margin: 40px 0 20px 30px;
     font-size: 30px;
 }
 
@@ -56,23 +82,21 @@ html body {
 
 
 .mini {
-
+    background-color: white;
     display: inline-block;
-    float: left;
     width: 200px;
     height: 100px;
     text-align: center;
     margin: 15px;
     padding: 10px;
-    border: 1px solid black;
     color: black;
     font-size: 20px;
     margin-left: 10px;
-    margin-right: 30px;
+    margin-right: 50px;
     border-radius: 20px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .07);
-    border: solid 1px #ebedf2;
-    background-color: #fff
+    border: 1px solid rgba(0, 0, 0, .125);
+
 }
 
 #svg-container {
@@ -87,7 +111,7 @@ html body {
     font-weight: 800;
     font-family: "Open Sans", sans-serif;
     font-size: 30px;
-    margin: 20px 0 0 20px;
+    margin: 20px 0 20px 30px;
 }
 
 .mini div {
@@ -100,37 +124,46 @@ html body {
     padding: 10px;
 }
 
+.title-img {
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 40px;
+    height: 25px;
+}
 
 .info {
-
+    background-color: white;
+    grid-area: 1 / 5 / 6 / 7;
     float: right;
-    width: 40%;
+    width: 100%;
     height: 97%;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, .125);
+    margin-top: 20px;
+    margin-right: 20px;
+
 }
 
 .card-1 {
-    display: flex;
+    grid-area: 2 / 1 / 4 / 5;
     flex-direction: column;
     justify-content: space-evenly;
-    widht: 100%;
     height: 30%;
-
+    grid-row: 1;
     text-align: center
 }
 
 #op_id {
     font-weight: 800;
     font-family: "Open Sans", sans-serif;
-    margin: 1rem;
-    font-size: 20px;
+    margin: 2rem;
+    font-size: 25px;
 }
 
 #operator-led {
     width: 160px;
     height: 120px;
-    margin-left: 300px;
-    border: 1px solid black
+    margin: 50px auto;
+    border: 1px solid rgba(0, 0, 0, .125)
 }
 
 #operator-led > div {
@@ -148,25 +181,27 @@ html body {
     font-size: 50px;
     font-family: led;
     margin-top: 40px;
-    color: #92E0D3;
+    color: #1DC7EA;
 }
 
 .card-2 {
     height: 40%;
     text-align: center;
+    grid-row: 2
 
 }
-.table100{
-    margin-left: 70px;
-    margin-top: 30px;
+
+.table100 {
+    margin: 40px auto;
     width: 80%;
     height: 80%;
 }
+
 #outlier {
     font-weight: 800;
     font-family: "Open Sans", sans-serif;
     margin-top: 2rem;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 #outlier_table {
@@ -179,29 +214,43 @@ html body {
 
 .card-3 {
     text-align: center;
-    height: 20%;
+    width: 100%;
+    float: right;
+    margin-top: 20px;
+    grid-row: 3;
+    height: 30%;
+
 
 }
-.cell100{
-    text-align:center
+
+.cell100 {
+    text-align: center
 }
+
 #outlier2 {
     font-weight: 800;
     font-family: "Open Sans", sans-serif;
-    font-size: 20px;
-    margin-bottom:30px;
+    font-size: 25px;
+    margin-bottom: 30px;
 }
-#startdate{
-    width: 200px;
+
+#startdate {
+    width: 250px;
     height: 40px;
     font-size: 10px;
-    display:inline;
-    margin-right:30px;
+    display: inline;
+    margin-right: 30px;
+    text-align: center;
 }
 
 table {
     width: 400px;
     height: 300px;
+    margin: 40px auto;
+}
+.tr_1{
+    font-size:20px;
+    border-bottom: 1px solid black;
 }
 
 .tg {
@@ -258,12 +307,14 @@ table {
     margin: 30px;
     line-height: 40px;
 }
+
 .text-box {
-    display:inline;
+    display: inline;
 }
 
 .btn:link,
 .btn:visited {
+    border: solid 1px #ebedf2;
     text-transform: uppercase;
     text-decoration: none;
     padding: 15px 40px;
@@ -271,6 +322,7 @@ table {
     border-radius: 100px;
     transition: all .2s;
     position: absolute;
+    border: 1px solid rgba(0, 0, 0, .125);
 }
 
 .btn:hover {

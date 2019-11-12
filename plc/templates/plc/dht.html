@@ -4,30 +4,26 @@
 <html>
 <head>
     {% block head %}
-        {#        <script src="https://d3js.org/d3.v4.min.js"></script>#}
-        {#        <script src="http://code.jquery.com/jquery-latest.min.js"></script>#}
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        {#        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
-        {#        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>#}
-        {#        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>#}
-        {#        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>#}
-        {#        <link rel="stylesheet"#}
-        {#              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/>#}
 
         <link href="/static/style.css" rel="stylesheet" type="text/css"/>
         <link href="/static/style-responsive.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 
         <link rel="stylesheet" href="/static/dht_style.css?ver=1">
-        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
         <link rel="stylesheet" type="text/css" href="/static/vendor/perfect-scrollbar/perfect-scrollbar.css">
         <link rel="stylesheet" type="text/css" href="/static/css/main.css">
-        <link rel="stylesheet" type="text/css" media="all" href="/static/css/daterangepicker.css"/>
+        {#        <link rel="stylesheet" type="text/css" href="/static/css/daterangepicker"/>#}
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
-        <script type="text/javascript" src="/static/js/daterangepicker.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+        {#        <script type="text/javascript" src="/static/js/daterangepicker.js"></script>#}
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
         <title>DHT11 Temperature/Humidity monitoring</title>
     {% endblock %}
 </head>
@@ -38,7 +34,7 @@
 {% block content %}
     <div id="main">
         <div id="sensor_average">
-            <p id="mini_title">MAX DATA</p>
+            <p id="mini_title"><img src="/static/images/an.png" class="title-img">Highest Point (Sensor Data)</p>
             <div id="temp" class="mini">
                 <h6 id="temp_text">{{ MAX_Temperature }}</h6>
                 <p>Temperature</p>
@@ -58,71 +54,53 @@
         </div>
         <div class="info">
             <div class="card-1">
-                <p id="op_id">Operator ID</p>
+                <p id="op_id"><img src="/static/images/operation.png" class="title-img">Operator ID</p>
                 <div id="operator-led">
                     <p>2353</p>
                 </div>
             </div>
             <div class="card-2">
-                <p id="outlier">Recent Outlier data</p>
-                <div class="table100 ver1 m-b-110">
-                    <div class="table100-head">
-                        <table>
-                            <thead>
-                            <tr class="row100 head">
-                                <th class="cell100 column1">Sensor</th>
-                                <th class="cell100 column2">Time</th>
-                                <th class="cell100 column3">Value</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-
-                    <div class="table100-body js-pscroll">
-                        <table>
-                            <tbody>
-                            <tr class="row100 body">
-                                <td class="cell100 column1">{{ sensor.0 }}</td>
-                                <td class="cell100 column2">{{ value.0 }}</td>
-                                <td class="cell100 column3">{{ date.0 }}</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">{{ sensor.1 }}</td>
-                                <td class="cell100 column2">{{ value.1 }}</td>
-                                <td class="cell100 column3">{{ date.1 }}</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">{{ sensor.2 }}</td>
-                                <td class="cell100 column2">{{ value.2 }}</td>
-                                <td class="cell100 column3">{{ date.2 }}</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">{{ sensor.3 }}</td>
-                                <td class="cell100 column2">{{ value.3 }}</td>
-                                <td class="cell100 column3">{{ date.3 }}</td>
-                            </tr>
-
-                            <tr class="row100 body">
-                                <td class="cell100 column1">{{ sensor.4 }}</td>
-                                <td class="cell100 column2">{{ value.4 }}</td>
-                                <td class="cell100 column3">{{ date.4 }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <p id="outlier"><img src="/static/images/report.png" class="title-img">Recent Outlier data</p>
+                <table class="out_table">
+                    <tr class="tr_1">
+                        <th class="out_th">Sensor</th>
+                        <th class="out_th">Value</th>
+                        <th class="out_th">Time</th>
+                    </tr>
+                    <tr>
+                        <td class="out_th">{{ sensor.0 }}</td>
+                        <td class="out_th">{{ value.0 }}</td>
+                        <td class="out_th">{{ date.0 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="out_th">{{ sensor.1 }}</td>
+                        <td class="out_th">{{ value.1 }}</td>
+                        <td class="out_th">{{ date.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="out_th">{{ sensor.2 }}</td>
+                        <td class="out_th">{{ value.2 }}</td>
+                        <td class="out_th">{{ date.2 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="out_th">{{ sensor.3 }}</td>
+                        <td class="out_th">{{ value.3 }}</td>
+                        <td class="out_th">{{ date.3 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="out_th">{{ sensor.4 }}</td>
+                        <td class="out_th">{{ value.4 }}</td>
+                        <td class="out_th">{{ date.4 }}</td>
+                    </tr>
+                </table>
             </div>
-
             <div class="card-3">
-                <p id="outlier2"> Data History Select</p>
+                <p id="outlier2"><img src="/static/images/calendar.png" class="title-img"> Data History Select</p>
                 <input type="text" name="startdate" id="startdate"/>
                 <script>
                     $(document).ready(function () {
                         {#$('.startdate').daterangepicker({#}
-                        $('input[id="#startdate"]').daterangepicker({
+                        $('input[name="startdate"]').daterangepicker({
                             timePicker: true,
                             startDate: moment().startOf('hour'),
                             endDate: moment().startOf('hour').add(32, 'hour'),
@@ -136,37 +114,37 @@
                 <div class="text-box">
                     <a href="" onclick="btnFunction()" class="btn btn-white btn-animate">click me</a>
                 </div>
-                <
             </div>
-            <div>
-            </div>
+            <script>
+                function btnFunction() {
+                    var startdate = document.getElementById("startdate").value;
+                    sendData(startdate)
+                }
+
+                function sendData(startdate) {
+                    var jsonData = new Object()
+                    $.ajax({
+                        url: 'GetDate/',
+                        datatype: 'json',
+                        async: false,
+                        type: 'POST',
+                        data: {'startdate': startdate,},
+                        beforeSend: function (XMLHttpRequest) {
+                        },
+                        success: function (data) {
+                            console.log(startdate)
+                        },
+                        error: function (request, status, error) {
+                            alert("실패")
+                        }
+                    });
+                }
+            </script>
+
         </div>
-        <script>
-            function btnFunction() {
-                var startdate = document.getElementById("startdate").value;
-                sendData(startdate)
-            }
-            function sendData(startdate) {
-                var jsonData = new Object()
-                $.ajax({
-                    url: 'GetDate/',
-                    datatype: 'json',
-                    async: false,
-                    type: 'POST',
-                    data: {'startdate': startdate,},
-                    beforeSend: function (XMLHttpRequest) {
-                    },
-                    success: function (data) {
-                        console.log(startdate)
-                    },
-                    error: function (request, status, error) {
-                        alert("실패")
-                    }
-                });
-            }
-        </script>
+
         <div class="chart_container">
-            <p class="graph-title">Temperature/Humidity Graph</p>
+            <p class="graph-title"><img src="/static/images/growth.png" class="title-img">Temperature/Humidity Graph</p>
             <div id="chart">
             </div>
             <script>
@@ -177,30 +155,33 @@
                         x: [time],
                         y: [20],
                         mode: 'lines',
-                        marker: {color: 'pink', size: 8},
+                        marker: {color: '#1DC7EA', size: 8},
                         line: {width: 4},
-                        name: 'Temperature'
+                        name: 'Temperature',
+                        autosize: true
                     }, {
                         x: [data['time']],
                         y: [30],
                         mode: 'lines',
-                        marker: {color: 'gray', size: 8},
+                        marker: {color: '#FF4A55', size: 8},
                         line: {width: 4},
-                        name: 'Humidity'
+                        name: 'Humidity',
+                        autosize: true
                     },
                 ]);
                 var cnt = 0;
                 var interval = setInterval(function () {
                     var data = getData();
-                    var x = Math.floor(Math.random() * 40)+20;
-                    var y = Math.floor(Math.random() * 40)+20;
+                    var x = Math.floor(Math.random() * 40) + 20;
+                    var y = Math.floor(Math.random() * 40) + 20;
                     var time = new Date();
                     Plotly.extendTraces('chart', {
                         x: [[time], [time]],
                         {#y: [[data['temp']], [data['humi']]],#}
                         y: [[x], [y]],
                     }, [0, 1])
-                }, 3000);
+                }, 10000);
+
                 function getData() {
                     var jsonData = new Object();
                     $.ajax({
@@ -225,43 +206,43 @@
                 }
             </script>
         </div>
-        <div class="chart_container">
-            <p class="graph-title">Electronic/Infrared Graph</p>
+        <div class="chart_container2">
+            <p class="graph-title"><img src="/static/images/div3.png" class="title-img">Electronic/Infrared Graph</p>
             <div id="chart2">
                 <script>
-                    var x = Math.floor(Math.random() * 50)+20
-                    var y = Math.floor(Math.random() * 50)+20;
+                    var x = Math.floor(Math.random() * 50) + 20
+                    var y = Math.floor(Math.random() * 50) + 20;
                     var data = getData()
                     var time = new Date()
-                  Plotly.plot('chart2', [
-                    {
-                        x: [time],
-                        y: [20],
-                        mode: 'lines',
-                        marker: {color: 'pink', size: 8},
-                        line: {width: 4},
-                        name: 'Electronic'
-                    }, {
-                        x: [data['time']],
-                        y: [30],
-                        mode: 'lines',
-                        marker: {color: 'gray', size: 8},
-                        line: {width: 4},
-                        name: 'Infrared'
-                    },
-                ]);
+                    Plotly.plot('chart2', [
+                        {
+                            x: [time],
+                            y: [20],
+                            mode: 'lines',
+                            marker: {color: '#1DC7EA', size: 8},
+                            line: {width: 4},
+                            name: 'Electronic'
+                        }, {
+                            x: [data['time']],
+                            y: [30],
+                            mode: 'lines',
+                            marker: {color: '#FF4A55', size: 8},
+                            line: {width: 4},
+                            name: 'Infrared'
+                        },
+                    ]);
                     var cnt = 0;
-                   var interval = setInterval(function () {
-                    var data = getData();
-                    var x = Math.floor(Math.random() * 40)+20;
-                    var y = Math.floor(Math.random() * 40)+20;
-                    var time = new Date();
-                    Plotly.extendTraces('chart2', {
-                        x: [[time], [time]],
-                        {#y: [[data['temp']], [data['humi']]],#}
-                        y: [[x], [y]],
-                    }, [0, 1])
-                }, 3000);
+                    var interval = setInterval(function () {
+                        var data = getData();
+                        var x = Math.floor(Math.random() * 40) + 20;
+                        var y = Math.floor(Math.random() * 40) + 20;
+                        var time = new Date();
+                        Plotly.extendTraces('chart2', {
+                            x: [[time], [time]],
+                            {#y: [[data['temp']], [data['humi']]],#}
+                            y: [[x], [y]],
+                        }, [0, 1])
+                    }, 10000);
 
                     function getData() {
                         var jsonData = new Object();
@@ -288,21 +269,10 @@
                 </script>
             </div>
         </div>
+
     </div>
-    <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/popper.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/vendor/select2/select2.min.js"></script>
-    <script src="/static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
-        $('.js-pscroll').each(function () {
-            var ps = new PerfectScrollbar(this);
-            $(window).on('resize', function () {
-                ps.update();
-            })
-        });
-    </script>
-    <script src="/static/js/main.js"></script>
+
+
 {% endblock %}
 </body>
 </html>

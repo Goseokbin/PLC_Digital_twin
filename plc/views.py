@@ -23,6 +23,9 @@ import codecs
 
 def index(request):
     return render(request, 'plc/index.html', {});
+
+def index2(request):
+    return render(request, 'plc/index2.html', {});
 def table(request):
     return render(request, 'plc/test.html', {});
 
@@ -158,27 +161,27 @@ def OutlierHistory(request):
     date = list(df.date.values)
     values = list(df.value.values)
     sensor = list(df.sensor.values)
-    print(date)
-    x = date
-    y = values
+    d={'x':date,'y':values,'z':sensor}
+
+    df1 = pd.DataFrame(data=d)
+    coloridx = {'Temperature': 'green', 'Humidity': 'pink', 'Electronic': 'blue'}
+    cols = df1['z'].map(coloridx)
+
     layout  = go.Layout(
         font=dict(
             size=10,
-            color="#00ad5f"
+            color="black"
         ),
-        paper_bgcolor='rgba(34,34,34,1)',
-        plot_bgcolor='rgba(34,34,34,1)',
 
     )
 
-    data = go.Scatter(x=x, y=y,marker=dict(size=20),
-                             mode='markers', opacity=0.8, marker_color='green', text=sensor)
+    data = go.Scatter(x=df1.x, y=df1.y, marker=dict(size=20,color=cols),
+                        mode='markers',opacity=0.8, text=sensor,)
     fig = go.Figure(data=data, layout=layout)
 
     plot = opy.plot(fig,output_type='div')
 
-    return render(request, "plc/history.html", context={'plot_div': plot
-                                                        })
+    return render(request, "plc/history.html", context={'plot_div': plot})
 
 
 @csrf_exempt

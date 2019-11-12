@@ -45,6 +45,29 @@
         </div><
     </div>
 </nav>
+
+<script>
+       var socket = new WebSocket('ws://' + window.location.host + '/ws/unity/plcmodel' );
+       var message={ msg:"msg"};
+        socket.onopen = function open(){
+            console.log('Websocket connection created')
+            socket.send("hello");
+        }
+
+        if(socket.readyState == WebSocket.OPEN){
+            socket.onopen = function(e){
+                console.log("open", e);
+            };
+        }
+
+
+        socket.onmessage = function(e){
+            console.log("메세지", e["data"])
+        };
+
+
+
+    </script>
 <div class="main" style="background-image: url('/static/images/test/factory2.jpg')">
 
 
@@ -69,12 +92,19 @@
                                     style="height:50px;width:100px">
                                 start
                             </button>
+                            <button type="submit" onclick="start_btn2()" class="btn btn-danger btn-fill"
+                                    style="height:50px;width:100px">
+                                start2
+                            </button>
                             <script>
                                 function start_btn() {
                                     var url = "webgl";
                                     var name = "webgl test";
                                     var option = "width = 960, height = 600, top = 100, left = 200, location = no"
                                     window.open(url, name, option);
+                                }
+                                function start2_btn(){
+
                                 }
                             </script>
                         </form>

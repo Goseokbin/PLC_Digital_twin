@@ -21,11 +21,11 @@ VIEWS_UNITY_NAME_UNITY_ = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'history', views.history, name='history'),
     url(r'base', views.base, name='base'),
+    url(r'index2', views.index2, name='index2'),
 
     url(r'dht', views.GetMaxdata, name='dht'),
     url(r'arduino', views.arduino, name='arduino'),
     url(r'unity', views.unity, name="unity"),
-    url(r'table', views.table, name="table"),
 
     url(r'GetDate', views.GetDate, name="GetDate"),
     url(r'GetOutlier',views.GetOutlier,name="GetOutlier"),

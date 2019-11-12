@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from . import comsumer
+from . import connection
 
 websocket_urlpatterns = [
-    url(r'ws/unity', comsumer.websocket_connect),
+    url(r'^ws/unity/plcmodel', connection.plcConsumer),
 ]

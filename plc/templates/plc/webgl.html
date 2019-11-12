@@ -11,14 +11,8 @@
     <!-- TITLE -->
     <title>PLC - Data Modeling</title>
 
-
-    <script src="/static/TemplateData/UnityProgress.js"></script>
-    <script src="/static/Build/UnityLoader.js"></script>
     <script>
-        var gameInstance = UnityLoader.instantiate("gameContainer", "/static/Build/graduate.json", {onProgress: UnityProgress});
-    </script>
-    <script>
-       var socket = new WebSocket('ws://' + window.location.host + '/ws/unity' );
+       var socket = new WebSocket('ws://' + window.location.host + '/ws/unity/plcmodel' );
 
         socket.onopen = function open(){
             console.log('Websocket connection created');
