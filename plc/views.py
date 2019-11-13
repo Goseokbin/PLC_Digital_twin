@@ -13,9 +13,6 @@ import pymysql
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.offline as opy
-import json
-import time
-import codecs
 
 
 # Create your views here.
@@ -23,12 +20,6 @@ import codecs
 
 def index(request):
     return render(request, 'plc/index.html', {});
-
-def index2(request):
-    return render(request, 'plc/index2.html', {});
-def table(request):
-    return render(request, 'plc/test.html', {});
-
 
 def history(request):
     return render(request, 'plc/history.html', {});
@@ -44,6 +35,7 @@ def dht(request):
 
 def unity(request):
     return render(request, "plc/unity.html")
+
 def webgl(request):
     return render(request, "plc/webgl.html")
 
@@ -204,41 +196,6 @@ def SetOutlier(request):
     conn.close()
     return HttpResponse("이상점 설정이 완료되었습니다")
 
-@csrf_exempt
-def getPLC(request):
-    print ("hi")
-    # ser = serial.Serial(
-    #     port='COM3',
-    #     baudrate=9600,
-    #     timeout=1,
-    #     bytesize=serial.EIGHTBITS,)
-    #
-    # enq=u"\u0005"
-    # etx = u"\u0004"
-    #
-    # start1 = enq + "00RSS0205%MX2004%MX1" + etx
-
-    out = ''
-
-    # s = codecs.encode(s.encode(), 'hex_codec')
-    # get keyboard input
-    # ser.write(bytes((chr(37)+s+chr(35)).encode("hex")))
-
-    # ser.write(s.encode("ASCII"))
-
-    # ser.write(bytearray(start1, 'ascii'))
-    # ser.write(bytearray(start1, 'ascii'))
-
-    # while True:
-    #     ser.write(bytearray(start1, 'ascii'))
-    #
-    #     out = ser.readline()
-    #
-    #     ser.close()
-    #     if out != '':
-    #         print(out)
-    #     else:
-    #         print("out이 없음")
     return render(request,'plc/webgl.html',context={'id':1})
 
 def connectPLC(request):
@@ -248,30 +205,6 @@ def connectPLC(request):
         timeout=1,
         bytesize=serial.EIGHTBITS )
     return ser
-# def setPLC(request,ser):
-#
-#          ser = serial.Serial(
-#           port='COM3',
-#          baudrate=9600,
-#          timeout=1,
-#          bytesize=serial.EIGHTBITS, )
-#
-#          enq = u"\u0005"
-#          etx = u"\u0004"
-#
-#          start1 = enq + "00WSS0106%MX101" + etx
-#          out = ''
-#
-#          while True:
-#             ser.write(bytearray(start1, 'ascii'))
-#             out = ser.readline()
-#
-#             ser.close()
-#             if out != '':
-#              print(out)
-#             else:
-#              print("out이 없음")
-#     return render(request, 'plc/webgl.html', context={'id': 1})
 
 def sendplcoutlier(request):
     conn = pymysql.connect(host='localhost', user='root', password='1234', db='Graduation', charset='utf8')

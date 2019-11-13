@@ -35,7 +35,6 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-{#                    <a href="{% url 'dht' %}" class="dropdown-toggle" data-toggle="dropdown">#}
                     <a href="{% url 'index' %}">
                         Home
                     </a>
@@ -92,19 +91,12 @@
                                     style="height:50px;width:100px">
                                 start
                             </button>
-                            <button type="submit" onclick="start_btn2()" class="btn btn-danger btn-fill"
-                                    style="height:50px;width:100px">
-                                start2
-                            </button>
                             <script>
                                 function start_btn() {
                                     var url = "webgl";
                                     var name = "webgl test";
                                     var option = "width = 960, height = 600, top = 100, left = 200, location = no"
                                     window.open(url, name, option);
-                                }
-                                function start2_btn(){
-
                                 }
                             </script>
                         </form>

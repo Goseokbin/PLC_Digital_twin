@@ -21,7 +21,6 @@ VIEWS_UNITY_NAME_UNITY_ = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'history', views.history, name='history'),
     url(r'base', views.base, name='base'),
-    url(r'index2', views.index2, name='index2'),
 
     url(r'dht', views.GetMaxdata, name='dht'),
     url(r'arduino', views.arduino, name='arduino'),
@@ -33,7 +32,7 @@ VIEWS_UNITY_NAME_UNITY_ = [
     url(r'SetOutlier',views.SetOutlier,name="SetOutlier"),
     url(r'sendplcoutlier',views.sendplcoutlier,name="sendplcoutlier"),
     # url(r'setPLC',views.setPLC,name="setPLC"),
-    url(r'getPLC',views.getPLC,name="getPLC"),
+    # url(r'getPLC',views.getPLC,name="getPLC"),
     url(r'webgl',views.webgl,name="webgl"),
 
 

@@ -5,24 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!-- META -->
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <!-- TITLE -->
     <title>PLC - Data Modeling</title>
 
+
+    <script src="/static/TemplateData/UnityProgress.js"></script>
+    <script src="/static/Build/UnityLoader.js"></script>
     <script>
-       var socket = new WebSocket('ws://' + window.location.host + '/ws/unity/plcmodel' );
-
-        socket.onopen = function open(){
-            console.log('Websocket connection created');
-        }
-
-        if(socket.readyState == WebSocket.OPEN){
-            socket.onopen = function(e){
-                console.log("open", e);
-            };
-        }
+        var gameInstance = UnityLoader.instantiate("gameContainer", "/static/Build/upload.json", {onProgress: UnityProgress});
+        UnityLoader.SystemInfo.hasWasm = false;
     </script>
 </head>
 
@@ -32,10 +26,9 @@
 <div class="container">
     <div class="webgl-content">
         <div id="gameContainer" style="width: 960px; height: 600px"></div>
-        <div class="footer">
             <div class="webgl-logo"></div>
             <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-            <div class="title">PLC</div>
+
         </div>
     </div>
 

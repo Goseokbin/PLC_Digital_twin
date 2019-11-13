@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -18,10 +19,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ihof@=8ro2dkt_4-vh^vilb!0^xt4xql0p^%702(sz_h4g4t9y'
+# SECRET_KEY = 'ihof@=8ro2dkt_4-vh^vilb!0^xt4xql0p^%702(sz_h4g4t9y'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = True
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = ['*']
 
@@ -54,7 +57,6 @@ CHANNEL_LAYERS = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -132,7 +134,4 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = os.path.join(BASE_DIR,'static')
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

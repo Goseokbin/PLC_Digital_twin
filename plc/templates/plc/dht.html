@@ -177,8 +177,8 @@
                     var time = new Date();
                     Plotly.extendTraces('chart', {
                         x: [[time], [time]],
-                        {#y: [[data['temp']], [data['humi']]],#}
-                        y: [[x], [y]],
+                        y: [[data['temp']], [data['humi']]],
+                        {#y: [[x], [y]],#}
                     }, [0, 1])
                 }, 10000);
 
@@ -193,8 +193,8 @@
                         beforeSend: function (XMLHttpRequest) {
                         },
                         success: function (data) {
-                            jsonData.temp = 20;
-                            jsonData.humi = 30;
+                            jsonData.temp = data['temp']
+                            jsonData.humi = data['humi']
                             jsonData.date = data['date']
                             jsonData.time = data['time']
                         },
