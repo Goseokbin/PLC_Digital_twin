@@ -33,9 +33,6 @@ PLC의 물리적인 동작환경을 시뮬레이션하고, PLC기기에서 발�
 <img width="350" height="300" src="https://user-images.githubusercontent.com/37431938/72971739-909e1e80-3e0d-11ea-8efa-c14b0f80e079.png">
 </div>
 
-## 특징
-## API References
-## Contribute
 ## Credits
-## License
-
+충북대학교 소프트웨어학과 고석빈
+충북대학교 소프트웨어학과 김재훈
