@@ -29,8 +29,8 @@ PLC의 물리적인 동작환경을 시뮬레이션하고, PLC기기에서 발�
   
 ## 구현 화면
 <div>
-<img width="200" src="https://user-images.githubusercontent.com/37431938/72971741-9136b500-3e0d-11ea-81da-bcbfaa58b4d6.png">
-<img width="200" src="https://user-images.githubusercontent.com/37431938/72971739-909e1e80-3e0d-11ea-8efa-c14b0f80e079.png">
+<img width="400" height="300" src="https://user-images.githubusercontent.com/37431938/72971741-9136b500-3e0d-11ea-81da-bcbfaa58b4d6.png">
+<img width="400" height="300" src="https://user-images.githubusercontent.com/37431938/72971739-909e1e80-3e0d-11ea-8efa-c14b0f80e079.png">
 </div>
 
 ## 특징
